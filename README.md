@@ -7,3 +7,6 @@ Key features include:
 -Compensation & Rewards: Modules for viewing payslips, tax information, and tracking employee rewards and recognition.
 -Integrated Tools: Features a chatbot and a dynamic banner for company-wide communication.
 -Unified Admin Panel: A single, centralized HR administration panel manages all content and data for both the web application and the React Native mobile app.
+
+
+Website-->https://people-connect-9c9v17xoe-atasi-kulkarnis-projects.vercel.app/
