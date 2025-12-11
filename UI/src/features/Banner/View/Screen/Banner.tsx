@@ -1,4 +1,4 @@
-import  { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { selectBanners, selectBannerStatus } from "../../slice/BannerSlice"; // Corrected selector name
@@ -67,18 +67,28 @@ export const Banner = () => {
     setProgress(0);
   };
 
+  const currentBannerData = banners[currentBanner];
+
+  // Dynamically select a color based on the banner's index
+  const currentColorClass = BANNER_COLORS[currentBanner % BANNER_COLORS.length];
+
   if (status === "loading" || status === "idle") {
     return <div className="p-4 text-center">Loading banners...</div>;
   }
 
   if (!banners || banners.length === 0) {
-    return <div className="p-4 text-center">No banners available.</div>;
+    return (
+      <div
+        className={`
+               absolute top-0 left-0 w-full 
+                 flex justify-center p-8 relative overflow-hidden rounded-lg shadow-lg h-45
+               ${currentColorClass} 
+             `}
+      >
+        <p className="text-xl font-medium text-white ">No banners available</p>
+      </div>
+    );
   }
-
-  const currentBannerData = banners[currentBanner];
-
-  // Dynamically select a color based on the banner's index
-  const currentColorClass = BANNER_COLORS[currentBanner % BANNER_COLORS.length];
 
   return (
     <div className="relative w-full overflow-hidden rounded-lg shadow-lg h-45">
@@ -88,7 +98,7 @@ export const Banner = () => {
           className={`
             absolute top-0 left-0 w-full h-full 
               flex justify-between p-8
-            ${currentColorClass} /* Use the calculated front-end color */
+            ${currentColorClass} 
           `}
           custom={directionRef.current}
           variants={bannerVariants}
@@ -125,7 +135,7 @@ export const Banner = () => {
           <div
             key={banner.id}
             className={`
-              relative h-2 rounded-full cursor-pointer transition-all duration-300
+              relative h-2 rounded-full cursor-pointer transition-all duration-300 
               ${index === currentBanner ? "w-7 bg-gray-400" : "w-2 bg-gray-400"}
             `}
             onClick={() => handleDotClick(index)}
