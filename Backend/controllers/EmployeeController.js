@@ -86,15 +86,42 @@ const addEmployee = async (req, res) => {
 
 // Update employee
 const updateEmployee = async (req, res) => {
+  console.log("Request Body:", req.files); // Debugging line to check incoming data
   const { id } = req.params;
-  const { name, email, mobile, profile_picture, dob, doj } = req.body;
+  
+  // Destructure all possible fields from the request body
+  const { first_name, last_name, gender, employee_id, designation, department, email, mobile, office_location, dob, doj, martial_status, reporting_manager, delivery_head, emergency_contact_name, emergency_contact, emergency_contact_relation, blood_group, total_experence, current_company_experence, aadhar, pan, passport, current_address, permanent_address } = req.body;
+
+  // Check if new files were uploaded during this specific update request
+  const profile_picture = req.files['profile_picture'] ? `/public/${req.files['profile_picture'][0].filename}` : req.body.profile_picture_url_if_not_updated || null; // Assumes frontend sends existing URL if not changed
+  const resume = req.files['resume'] ? `/public/${req.files['resume'][0].filename}` : req.body.resume_url_if_not_updated || null; // Assumes frontend sends existing URL if not changed
+
   try {
     const result = await pool.query(
-      "UPDATE Employee SET name = $1, email = $2, mobile = $3, profile_picture = $4, dob = $5, doj = $6 WHERE id = $7 RETURNING *",
-      [name, email, mobile, profile_picture, dob, doj, id]
+      `UPDATE Employee SET 
+        first_name = $1, last_name = $2, gender = $3, employee_id = $4, designation = $5, 
+        department = $6, email = $7, mobile = $8, profile_picture = $9, dob = $10, 
+        doj = $11, office_location = $12, martial_status = $13, reporting_manager = $14, 
+        delivery_head = $15, emergency_contact_name = $16, emergency_contact = $17, 
+        emergency_contact_relation = $18, blood_group = $19, total_experence = $20, 
+        current_company_experence = $21, aadhar = $22, pan = $23, passport = $24, 
+        current_address = $25, permanent_address = $26, resume = $27
+      WHERE id = $28 
+      RETURNING *`,
+      [
+        first_name, last_name, gender, employee_id, designation, department, email, mobile, 
+        profile_picture, dob, doj, office_location, martial_status, reporting_manager, 
+        delivery_head, emergency_contact_name, emergency_contact, emergency_contact_relation, 
+        blood_group, total_experence, current_company_experence, aadhar, pan, passport, 
+        current_address, permanent_address, resume, id // ID is the last parameter for WHERE clause
+      ]
     );
-    if (result.rows.length === 0)
+
+    if (result.rows.length === 0) {
       return res.status(404).send("Employee not found");
+    }
+
+    // Format dates before sending the response
     const formatted = result.rows.map(emp => ({
       ...emp,
       dob: formatDate(emp.dob),
@@ -102,6 +129,7 @@ const updateEmployee = async (req, res) => {
     }));
 
     res.json(formatted);
+
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -123,11 +151,44 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
+// const getTodayBirthdays = async (req, res) => {
+//   try {
+//     // Uses PostgreSQL EXTRACT to compare month and day of 'dob' with the current date
+//     const query = `
+//       SELECT first_name, last_name, email, dob, profile_picture
+//       FROM Employee
+//       WHERE EXTRACT(MONTH FROM dob) = EXTRACT(MONTH FROM CURRENT_DATE)
+//         AND EXTRACT(DAY FROM dob) = EXTRACT(DAY FROM CURRENT_DATE);
+//     `;
+//     const result = await pool.query(query);
+//     res.json(result.rows); // Returns only relevant fields for the event
+//   } catch (err) {
+//     res.status(500).send(err.message);
+//   }
+// };
+
+// const getTodayAnniversaries = async (req, res) => {
+//   try {
+//     // Uses PostgreSQL EXTRACT to compare month and day of 'doj' with the current date
+//     const query = `
+//       SELECT first_name, last_name, email, doj, profile_picture
+//       FROM Employee
+//       WHERE EXTRACT(MONTH FROM doj) = EXTRACT(MONTH FROM CURRENT_DATE)
+//         AND EXTRACT(DAY FROM doj) = EXTRACT(DAY FROM CURRENT_DATE);
+//     `;
+//     const result = await pool.query(query);
+//     res.json(result.rows); // Returns only relevant fields for the event
+//   } catch (err) {
+//     res.status(500).send(err.message);
+//   }
+// };
 module.exports = {
   getEmployees,
   getEmployeeById,
   addEmployee,
   updateEmployee,
+  // getTodayBirthdays,
+  // getTodayAnniversaries,
   uploadMiddleware: upload.fields([
     { name: 'profile_picture', maxCount: 1 },
     { name: 'resume', maxCount: 1 }

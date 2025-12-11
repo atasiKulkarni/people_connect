@@ -1,0 +1,13 @@
+/* Styles for Events component */
+.my-component {
+  display: flex;
+  flex-direction: column;
+}
+.birthdayContainter {
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  padding: 20;
+ 
+}

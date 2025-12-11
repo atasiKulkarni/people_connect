@@ -1,0 +1,5 @@
+/* Styles for [FTName] component */
+.my-component {
+  display: flex;
+  flex-direction: column;
+}

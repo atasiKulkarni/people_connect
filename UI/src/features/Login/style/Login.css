@@ -1,0 +1,5 @@
+/* Styles for Login component */
+.my-component {
+  display: flex;
+  flex-direction: column;
+}

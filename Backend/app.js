@@ -6,6 +6,7 @@ var logger = require('morgan');
 const cors = require('cors'); // 1. Import the cors package
 var app = express();
 var employeeRouter = require('./routes/EmployeeRoute');
+var eventRouter = require('./routes/eventsRoutes');
 var bannerRoute = require('./routes/BannerRoute')
 
 // Make the uploads folder publicly accessible via the /public route
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/employees', employeeRouter);
+app.use('/api/event', eventRouter);
 app.use('/api/banner', bannerRoute);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

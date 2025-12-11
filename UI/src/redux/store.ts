@@ -1,12 +1,13 @@
 
 import { configureStore } from '@reduxjs/toolkit';
-import bannerReducer from "../components/Banners/slice/BannerSlice"
-import employeeReducer from "../components/Employee/slice/EmployeeSlice"
-
+import bannerReducer from "../features/Banner/slice/BannerSlice"
+import employeeReducer from "../features/Employee/slice/EmployeeSlice"
+import eventReducer from "../features/Events/slice/EventSlice"
 export const store = configureStore({
   reducer: {
     banners: bannerReducer,
-    employee: employeeReducer
+    employee: employeeReducer,
+    event: eventReducer
   },
 });
 
