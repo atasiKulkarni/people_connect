@@ -30,7 +30,7 @@ export const Login = () => {
           className="text-black font-[Rubik] text-sm font-normal border border-gray-100 w-full p-3 rounded mt-5 shadow-sm cursor-pointer"
           onClick={GoToDashboard}
         >
-          SSO Login
+          SSO Login with Microsoft
         </div>
       </div>
     </div>
