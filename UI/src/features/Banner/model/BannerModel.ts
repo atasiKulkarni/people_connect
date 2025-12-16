@@ -4,7 +4,7 @@ export interface BannerDetail {
     id: number;
     title: string;
     description: string;
-    imageUrl?: string; // Optional property
+    image_url?: string; // Optional property
     // Add other fields present in your PostgreSQL table
   }
 

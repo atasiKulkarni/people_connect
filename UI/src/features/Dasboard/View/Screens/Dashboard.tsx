@@ -5,7 +5,6 @@ import { TiFlowChildren } from "react-icons/ti";
 import { CgNotes } from "react-icons/cg";
 import { GoGoal } from "react-icons/go";
 import { RxDotsVertical } from "react-icons/rx";
-import { Navbar } from "../Components/Navbar";
 import { Banner } from "../../../Banner/View/Screen/Banner";
 import { Recommendations } from "../Components/Recommendations";
 import { Updates } from "../Components/Updates";
@@ -40,14 +39,11 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      {/* Outer container for the full page scroll */}
-      <div className="p-8">
-        {/* Main content grid. Use a ref to track its position. */}
-        <div ref={mainContentRef} className="grid grid-cols-8 w-full gap-4">
+   
+      <div className="px-5 mt-20 ">
+        <div ref={mainContentRef} className="grid grid-cols-8 w-full gap-4 ">
           {/* Section 1 - Left column */}
-          <div className="col-span-6 overflow-auto">
+          <div className="col-span-6">
             <Banner />
             <Recommendations />
             <Updates />
@@ -129,65 +125,11 @@ export const Dashboard = () => {
                 </div>
               </div>
               <Events  />
-              {/* <div className="rounded-lg bg-white shadow-md px-3 py-4 mt-3 shadow-md">
-                <p className="text-black font-[Rubik] font-medium text-base">
-                  Events
-                </p>
-                <div className="p-2">
-                  <div className="flex border-b border-gray-300">
-                    <button
-                      onClick={() => setActiveTab("Leave")}
-                      className={`px-4 py-2 transition-colors duration-300 font-[Rubik] text-black text-sm ${
-                        activeTab === "Leave" ? "border-b-2 border-[#005DAC] font-medium" : "font-normal"
-                      }`}
-                    >
-                      Leave
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("Birthdays")}
-                      className={`px-4 py-2 transition-colors duration-300 font-[Rubik] text-black text-sm ${
-                        activeTab === "Birthdays" ? "border-b-2 border-[#005DAC] font-medium" : "font-normal"
-                      }`}
-                    >
-                      Birthdays
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("Anniversaries")}
-                      className={`px-4 py-2 transition-colors duration-300 font-[Rubik] text-black text-sm ${
-                        activeTab === "Anniversaries" ? "border-b-2 border-[#005DAC] font-medium" : "font-normal"
-                      }`}
-                    >
-                      Anniversaries
-                    </button>
-                  </div>
-                  {activeTab === "Leave" ? (
-                    <div className="mt-4 p-4 flex flex-col items-center">
-                      <img src={Image.working} className="w-50 object-contain" alt="Working" />
-                      <p className="transition-all duration-300 font-[Rubik] font-normal text-sm text-center px-5 text-gray-600">
-                        Team at its strongest! No one's on leave today!
-                      </p>
-                    </div>
-                  ) : activeTab === "Birthdays" ? (
-                    <div className="mt-4 p-4 flex flex-col items-center">
-                      <img src={Image.birthday} className="w-40 object-contain" alt="Birthday" />
-                      <p className="transition-all duration-300 font-[Rubik] font-normal text-sm text-center px-5 text-gray-600 mt-2">
-                        No Birthdays to celebrate. Spark joy in other ways!
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="mt-4 p-4 flex flex-col items-center">
-                      <img src={Image.trophy} className="w-40 object-contain" alt="Trophy" />
-                      <p className="transition-all duration-300 font-[Rubik] font-normal text-sm text-center px-5 text-gray-600 mt-2">
-                        No anniversaries today. Exciting milestones are ahead!
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div> */}
+          
             </div>
           </div>
         </div>
       </div>
-    </>
+  
   );
 };

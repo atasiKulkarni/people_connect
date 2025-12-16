@@ -5,7 +5,7 @@ import { selectBanners, selectBannerStatus } from "../../slice/BannerSlice"; // 
 import type { AppDispatch } from "../../../../redux/store";
 import { fetchBanners } from "../../action/BannerAction";
 import type { BannerDetail } from "../../model/BannerModel";
-const url = "http://localhost:3000";
+
 const INTERVAL_TIME = 3000;
 
 // Define a static list of Tailwind CSS colors to use
@@ -13,13 +13,12 @@ const BANNER_COLORS = ["bg-[#3b4ca5]", "bg-[#186a8e]"];
 
 export const Banner = () => {
   const dispatch = useDispatch<AppDispatch>();
-  // Use the correct selector name: selectAllBanners
   const banners: BannerDetail[] = useSelector(selectBanners);
   const status = useSelector(selectBannerStatus);
   const [currentBanner, setCurrentBanner] = useState(0);
   const [progress, setProgress] = useState(0);
   const directionRef = useRef(1);
-
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const bannerVariants = {
     initial: (direction: number) => ({
       x: direction > 0 ? "100%" : "-100%",
@@ -58,7 +57,7 @@ export const Banner = () => {
     }, INTERVAL_TIME / 100);
 
     return () => clearInterval(timer);
-  }, [currentBanner, banners.length]);
+  }, [currentBanner, banners]);
 
   const handleDotClick = (index: number) => {
     if (index === currentBanner) return;
@@ -122,7 +121,7 @@ export const Banner = () => {
           </div>
 
           <img
-            src={`${url}${currentBannerData.imageUrl}`} /* This concatenation IS correct */
+            src={`${baseUrl}${currentBannerData.image_url}`} 
             className="w-50 object-contain"
             alt="Working"
           />

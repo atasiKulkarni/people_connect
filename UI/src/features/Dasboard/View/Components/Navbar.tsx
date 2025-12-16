@@ -1,15 +1,15 @@
-import  { useState, useEffect, useRef } from "react";
 import { Image } from "../../../../utility/Image";
 import { IoNotificationsOutline, IoGridOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { Sidebar } from "./Sidebar";
+import { useEffect, useRef, useState } from "react";
+
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  const toggleBar = () => {
+    const toggleBar = () => {
     setIsOpen(!isOpen);
   };
 
@@ -33,13 +33,12 @@ export const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
-
   return (
-    <div className="bg-[linear-gradient(73deg,#005DAC,#005DAC,#005DAC)] grid grid-cols-8 w-full items-center h-16">
+    <div className="bg-[linear-gradient(73deg,#005DAC,#005DAC,#005DAC)] grid grid-cols-8 w-full items-center h-16 fixed top-0 z-50">
       <div className="col-span-2 flex">
         <div
           className="text-white cursor-pointer content-center pl-5"
-          onClick={toggleBar}
+          onClick={() => toggleBar()}
         >
           <IoGridOutline className="w-5 h-5" />
         </div>
@@ -89,16 +88,15 @@ export const Navbar = () => {
           </div>
         </div>
       </div>
-
+      
       {isOpen && (
         <>
           <div
             className="fixed inset-0 bg-black/50 z-40"
             onClick={() => setIsOpen(false)}
           ></div>
-          <Sidebar />
+          <Sidebar setIsOpen={setIsOpen}/>
         </>
-      )}
-    </div>
+      )}    </div>
   );
 };

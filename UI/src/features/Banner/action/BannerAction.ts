@@ -1,15 +1,18 @@
-// src/features/banners/bannerActions.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import type { BannerDetail } from '../model/BannerModel';
+import { BannerUrlType, getBannerScreenRequestURL } from '../utility/BannerUtility';
+import { JsonFetch } from '../../../utility/core/JsonFetch';
 
-const API_URL = 'http://localhost:3000/api/banner';
-
-// Define and export the async thunk action
 export const fetchBanners = createAsyncThunk<BannerDetail[]>(
   'banners/fetchBanners',
   async () => {
-    const response = await axios.get<BannerDetail[]>(API_URL);
-    return response.data;
+    try {
+      const response = await JsonFetch(getBannerScreenRequestURL(BannerUrlType.banner));
+      console.log("banner_response-->",response)
+      return response;
+    } catch (error) {
+      console.error("Error fetching banners:", error);
+      console.log("error", error);
+    }
   }
 );

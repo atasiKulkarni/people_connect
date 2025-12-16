@@ -31,7 +31,7 @@ export const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
   };
 
   // Define the base URL for images
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   return (
     <div className="mt-5">

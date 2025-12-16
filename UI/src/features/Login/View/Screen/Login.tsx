@@ -5,7 +5,7 @@ export const Login = () => {
   const navigation = useNavigate();
   const GoToDashboard = () => {
     
-    navigation("./dashboard");
+    navigation("./home");
   };
   return (
     <div className="grid grid-cols-8 gap-4 w-full h-screen bg-white">

@@ -18,9 +18,9 @@ console.log("employeeList-->",employeeList)
 
   useEffect(() => {
     // Only dispatch if status is 'idle'
-    // if (status === "idle") {
+    if (status === "idle") {
       dispatch(fetchEmployee());
-    // }
+    }
   }, [status, dispatch]);
 
   return (
