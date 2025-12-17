@@ -5,7 +5,7 @@ const {
   fetchTodayAnniversaries,
   fetchTodayLeaves,
   getTodayEvents,
-} = require("../controllers/eventController");
+} = require("../controllers/EventController");
 
 router.get("/todays-birthdays", fetchTodayBirthdays);
 router.get("/todays-anniversary", fetchTodayAnniversaries);

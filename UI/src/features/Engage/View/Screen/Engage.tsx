@@ -78,13 +78,13 @@ export const Engage = () => {
   };
 
   return (
-    <div className="px-5 pt-15 pb-1 bg-[#f3f9ff]  overflow-hidden">
-      <div className="grid grid-cols-8 w-full gap-2 px-20 ">
+    <div className="px-5 pt-15 pb-1 bg-[#f3f9ff] overflow-hidden">
+      <div className="grid grid-cols-10 w-full gap-2 px-10">
         {/* left section */}
         <Menu />
 
         {/* mid section */}
-        <div className="col-span-4 overflow-y-auto h-[calc(100vh-theme('spacing.10'))] ">
+        <div className="col-span-6 overflow-y-auto h-[calc(100vh-theme('spacing.10'))] ">
         <CreatePost />
 
           <div className="px-3">
@@ -110,7 +110,7 @@ export const Engage = () => {
                   </div>
                 </div>
                 <div className="px-5">
-                  <div className="w-full h-100 mt-5 rounded-lg content-center items-center bg-blue-300 ">
+                  <div className="w-full h-40 mt-5 rounded-lg content-center items-center  ">
                     <img
                       src={item.image}
                       className="w-full h-full object-cover rounded-lg"

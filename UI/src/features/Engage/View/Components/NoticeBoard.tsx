@@ -55,7 +55,7 @@ export const NoticeBoard = () => {
   return (
     <div className="col-span-2 w-full">
       <div className="bg-white my-5 rounded-lg shadow-md h-50 ">
-        <div className=" flex flex-col px-5 pt-5">
+        <div className=" flex flex-col px-4 pt-5">
           <p className="text-black font-[Rubik] font-medium text-sm">
             Appreciate Your Colleagues!!
           </p>
@@ -65,11 +65,11 @@ export const NoticeBoard = () => {
               className="w-20 h-20 object-contain"
             />
             <div>
-              <p className="text-gray-700 font-[Rubik] font-normal text-sm m-2">
-                Express gratitude and acknowledgment to your colleagues.
+              <p className="text-gray-700 font-[Rubik] font-normal text-sm ml-1">
+                Express gratitude and acknowledgment to your colleagues
               </p>
               <div
-                className="border border-blue-600 rounded-sm p-1 mx-2 cursor-pointer"
+                className="border border-blue-600 rounded-sm p-1 mx-2 cursor-pointer mt-3"
                 onClick={() => setShow(true)}
               >
                 <p className="text-blue-600 font-[Rubik] font-normal text-sm text-center">
