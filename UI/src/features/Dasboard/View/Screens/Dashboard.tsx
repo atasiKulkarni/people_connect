@@ -40,7 +40,7 @@ export const Dashboard = () => {
 
   return (
    
-      <div className="px-5 mt-20 ">
+      <div className="p-5 mt-20 ">
         <div ref={mainContentRef} className="grid grid-cols-8 w-full gap-4 ">
           {/* Section 1 - Left column */}
           <div className="col-span-6">

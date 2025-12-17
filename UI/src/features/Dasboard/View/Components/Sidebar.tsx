@@ -12,10 +12,10 @@ export const Sidebar = ({ setIsOpen }: SidebarProps) => {
  const sidebarRef = useRef<HTMLDivElement>(null);
 
   const moreApps = [
-    { name: "Dashboard", image: Image.dashboard, navigate: "/dashboard" },
-    { name: "Employee", image: Image.employee, navigate: "/employee" },
-    { name: "Engage", image: Image.engage, navigate: "/engage" },
-    { name: "Timesheet", image: Image.timesheet, navigate: "/dashboard" },
+    { name: "Dashboard", image: Image.dashboard, navigate: "/home" },
+    { name: "Employee", image: Image.employee, navigate: "/home/employee" },
+    { name: "Engage", image: Image.engage, navigate: "/home/engage" },
+    { name: "Timesheet", image: Image.timesheet, navigate: "/home/dashboard" },
     { name: "Compensation", image: Image.compensation, navigate: "/dashboard" },
     { name: "Recruitment", image: Image.recruitment, navigate: "/dashboard" },
     {

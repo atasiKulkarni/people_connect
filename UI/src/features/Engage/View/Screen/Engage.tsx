@@ -4,78 +4,16 @@ import { FaHeart } from "react-icons/fa";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { IoMdClose } from "react-icons/io";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { CiEdit } from "react-icons/ci";
-import { AiOutlineQuestion } from "react-icons/ai";
-import { GrAttachment } from "react-icons/gr";
-import { HiOutlinePhoto } from "react-icons/hi2";
-import { Image } from "../../../../utility/Image";
-import { Navbar } from "../../../Dasboard/View/Components/Navbar";
 
-type MenuItemName = 'All Posts' | 'My Activity' | 'Saved Post';
+import { RecondationsData } from "../Components/EnageData";
+import { Image } from "../../../../utility/Image";
+import { Menu } from "../Components/Menu";
+import { NoticeBoard } from "../Components/NoticeBoard";
+import CreatePost from "../Components/CreatePost";
 
 export const Engage = () => {
   const [show, setShow] = useState(false);
-  const [activeItem, setActiveItem] = useState<MenuItemName>('All Posts');
 
-
-  const handleItemClick = (itemName: MenuItemName) => {
-    setActiveItem(itemName);
-  };
-
-   // Function to determine which classes to apply based on the active state
-   const getClasses = (itemName: MenuItemName) => {
-    const baseClasses = 'flex flex-row items-center py-3 px-5 cursor-pointer transition-colors duration-150';
-    
-    if (activeItem === itemName) {
-      // Classes for the active item
-      return `${baseClasses} bg-[#F1F8FF] border-l-2 border-blue-500`;
-    } else {
-      // Classes for inactive items
-      return `${baseClasses} bg-white border-l-2 border-transparent`;
-    }
-  };
-
-  const RecondationsData = [
-    {
-      title: "People Connect wishes Nyra Pakhare a very Happy Birthday",
-      time: "10 hours ago",
-      subTitle: "Join us in sending warm wishes to them on this special day!",
-      image: Image.birthdayWish,
-    },
-    {
-      title: "People Connect wishes Ayushi Kulkarni a very Happy Birthday",
-      time: "10 hours ago",
-      subTitle: "Important Update",
-      image: Image.anniversaryWish,
-    },
-    {
-      title: "People Connect wishes Elisha Das a very Happy Work Anniversary",
-      time: "10 hours ago",
-      subTitle: "",
-      image: Image.birthdayWish,
-    },
-    {
-      title: "People Connect wishes Dinna Das a very Happy Work Anniversary",
-      time: "10 hours ago",
-      subTitle: "",
-      image: Image.anniversaryWish,
-    },
-  ];
-
-  const createPostData = [
-    {
-      name: "Express In Pictures",
-      icon: <HiOutlinePhoto className="w-6 h-6" color="blue" />,
-    },
-    {
-      name: "Share Epic Reads",
-      icon: <GrAttachment className="w-6 h-6" color="purple" />,
-    },
-    {
-      name: "Ask The Forum",
-      icon: <AiOutlineQuestion className="w-6 h-6" color="red" />,
-    },
-  ];
   const [likedStates, setLikedStates] = useState(
     new Array(RecondationsData.length).fill(false)
   );
@@ -140,111 +78,14 @@ export const Engage = () => {
   };
 
   return (
-    <div className="no-scrollbar">
-      <Navbar />
-      <div className="grid grid-cols-8 w-full gap-2 px-20 bg-[#f3f9ff]">
+    <div className="px-5 pt-15 pb-1 bg-[#f3f9ff]  overflow-hidden">
+      <div className="grid grid-cols-8 w-full gap-2 px-20 ">
         {/* left section */}
-        <div className="col-span-2 w-full bg-white my-5 rounded-lg shadow-md h-100 ">
-          <div className=" flex flex-col items-center px-5 pt-7">
-            <div className="bg-gray-200 rounded-full w-15 h-15 items-center flex justify-center text-center ">
-              <p className="text-gray-800 font-[Rubik] font-medium text-xl text-center">
-                AK
-              </p>
-            </div>
-            <div className="border-b border-gray-200 w-full py-5">
-              <p className="text-black font-[Rubik] font-medium text-base text-center">
-                Atasi Kulkarni
-              </p>
-              <p className="text-black font-[Rubik] font-normal text-sm text-center ">
-                Associate Engineer I
-              </p>
-              <p className="text-black font-[Rubik] font-normal text-sm text-center ">
-                Engineering-RGB
-              </p>
-              <p className="text-gray-500 font-[Rubik] font-normal text-sm text-center ">
-                1004213
-              </p>
-            </div>
-          </div>
-
-         <div className="mt-4">
-      {/* All Posts Item */}
-      <div 
-        className={getClasses('All Posts')}
-        onClick={() => handleItemClick('All Posts')}
-      >
-        <HiOutlinePhoto className="w-6 h-6" color="gray" />
-        <p className="text-gray-800 font-[Rubik] font-normal text-sm ml-2">
-          All Posts
-        </p>
-      </div>
-
-      {/* My Activity Item */}
-      <div 
-        className={getClasses('My Activity')}
-        onClick={() => handleItemClick('My Activity')}
-      >
-        <HiOutlinePhoto className="w-6 h-6" color="gray" />
-        <p className="text-gray-800 font-[Rubik] font-normal text-sm ml-2">
-          My Activity
-        </p>
-      </div>
-
-      {/* Saved Post Item */}
-      <div 
-        className={getClasses('Saved Post')}
-        onClick={() => handleItemClick('Saved Post')}
-      >
-        <HiOutlinePhoto className="w-6 h-6" color="gray" />
-        <p className="text-gray-800 font-[Rubik] font-normal text-sm ml-2">
-          Saved Post
-        </p>
-      </div>
-    </div>
-
-         
-        </div>
+        <Menu />
 
         {/* mid section */}
-        <div className="col-span-4">
-          <div className="px-3 pt-5">
-            <div className="w-full rounded-lg content-center items-center bg-white [box-shadow:0_0_12px_0px_rgba(0,0,0,0.1)] p-5">
-              <div className="col-span-3 text-black flex items-center bg-white/10 w-full rounded-full p-2 h-9 content-center border border-gray-400">
-                <CiEdit className="w-7 h-7 " color="gray" />
-                <input
-                  type="text"
-                  placeholder="Create a post!"
-                  className="w-full ml-3 placeholder-gray-500 focus:outline-none text-sm text-gray-400 font-medium font-[Rubik]"
-                />
-              </div>
-              <div className="flex mt-5">
-                {createPostData?.map((post, index, array) => (
-                  <div
-                    key={index}
-                    className={`flex  items-center w-full px-3 ${
-                      index !== array.length - 1
-                        ? "border-r border-gray-300"
-                        : ""
-                    }`}
-                  >
-                    {" "}
-                    {typeof post.icon === "string" ? (
-                      <img
-                        src={post.icon}
-                        alt={post.name}
-                        className="w-6 h-6 object-contain"
-                      />
-                    ) : (
-                      <div>{post.icon}</div>
-                    )}
-                    <p className="text-black font-[Rubik] font-medium text-xs items-center ml-2">
-                      {post.name}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+        <div className="col-span-4 overflow-y-auto h-[calc(100vh-theme('spacing.10'))] ">
+        <CreatePost />
 
           <div className="px-3">
             {RecondationsData.map((item, index) => (
@@ -320,71 +161,12 @@ export const Engage = () => {
         </div>
 
         {/* right section */}
-        <div className="col-span-2 w-full bg-white my-5 rounded-lg shadow-md h-100 ">
-          <div className=" flex flex-col items-center px-5 pt-7">
-            <div className="bg-gray-200 rounded-full w-15 h-15 items-center flex justify-center text-center ">
-              <p className="text-gray-800 font-[Rubik] font-medium text-xl text-center">
-                AK
-              </p>
-            </div>
-            <div className="border-b border-gray-200 w-full py-5">
-              <p className="text-black font-[Rubik] font-medium text-base text-center">
-                Atasi Kulkarni
-              </p>
-              <p className="text-black font-[Rubik] font-normal text-sm text-center ">
-                Associate Engineer I
-              </p>
-              <p className="text-black font-[Rubik] font-normal text-sm text-center ">
-                Engineering-RGB
-              </p>
-              <p className="text-gray-500 font-[Rubik] font-normal text-sm text-center ">
-                1004213
-              </p>
-            </div>
-          </div>
-
-         <div className="mt-4">
-      {/* All Posts Item */}
-      <div 
-        className={getClasses('All Posts')}
-        onClick={() => handleItemClick('All Posts')}
-      >
-        <HiOutlinePhoto className="w-6 h-6" color="gray" />
-        <p className="text-gray-800 font-[Rubik] font-normal text-sm ml-2">
-          All Posts
-        </p>
-      </div>
-
-      {/* My Activity Item */}
-      <div 
-        className={getClasses('My Activity')}
-        onClick={() => handleItemClick('My Activity')}
-      >
-        <HiOutlinePhoto className="w-6 h-6" color="gray" />
-        <p className="text-gray-800 font-[Rubik] font-normal text-sm ml-2">
-          My Activity
-        </p>
-      </div>
-
-      {/* Saved Post Item */}
-      <div 
-        className={getClasses('Saved Post')}
-        onClick={() => handleItemClick('Saved Post')}
-      >
-        <HiOutlinePhoto className="w-6 h-6" color="gray" />
-        <p className="text-gray-800 font-[Rubik] font-normal text-sm ml-2">
-          Saved Post
-        </p>
-      </div>
-    </div>
-
-         
-        </div>
+        <NoticeBoard />
       </div>
 
       {/* SHOW POP UP TO SEND WISHES */}
       {show && (
-        <div className="fixed inset-0 bg-black/10 bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg relative max-w-lg w-full">
             <button
               onClick={() => setShow(false)}
