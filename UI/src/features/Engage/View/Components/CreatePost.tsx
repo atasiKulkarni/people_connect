@@ -1,25 +1,46 @@
 import { CiEdit } from "react-icons/ci";
 import { createPostData } from "../Components/EnageData";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { UploadPictureDiv } from "./UploadPictureDiv";
+import type { AppDispatch } from "../../../../redux/store";
+import { useDispatch } from "react-redux";
+import { createPost } from "../../action/EnagageAction";
 
 const CreatePost = () => {
   const [show, setShow] = useState(false);
-  const [description, setDescription] = useState<string>(""); // State for the description box
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const [description, setDescription] = useState<string>(""); 
+  const [imageSrc, setImageSrc] = useState<Blob | MediaSource | null>(null);
 
+  const CreatePost = () => {
+    const formData = new FormData();
+    formData.append("event_type", "");
+    formData.append("title", "");
+    formData.append("description", description);
+    if (imageSrc instanceof Blob) {
+      formData.append("image_url", imageSrc);
+    }
+    formData.append("created_by", "Atasi");
+    formData.append("employee_name", "");
+
+    dispatch(createPost(formData))
+      .unwrap()
+      .then((response) => {
+        console.log("Success:", response);
+        setShow(false); 
+        setDescription(""); 
+        setImageSrc(null);
+      })
+      .catch((err) => console.log("Error:", err));
+  };
   const handleCloseModal = () => {
     setShow(false);
-    // setSelectedEmployee(null); // Reset selected employee on close
-    // setSearchTerm("");
-    // setAppreciationMessage("");
   };
 
   return (
     <div>
-      <div className="px-3 pt-5">
+      <div className="px-3 pt-2">
         <div className="w-full rounded-lg content-center items-center bg-white [box-shadow:0_0_12px_0px_rgba(0,0,0,0.1)] p-5">
           <div className="col-span-3 text-black flex items-center bg-white/10 w-full rounded-full p-2 h-9 content-center border border-gray-400">
             <CiEdit className="w-7 h-7 " color="gray" />
@@ -76,7 +97,7 @@ const CreatePost = () => {
               <p className="text-gray-500 font-[Rubik] text-xs font-normal">
                 Share a picture and brighten everyone's day
               </p>
-              <UploadPictureDiv />
+              <UploadPictureDiv imageSrc={imageSrc} setImageSrc={setImageSrc} />
             </div>
 
             <div className="w-full mt-5">
@@ -106,11 +127,7 @@ const CreatePost = () => {
                   className="mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-medium py-1 px-4 rounded-sm disabled:bg-gray-400 cursor-pointer"
                   disabled={!description.trim()}
                   onClick={() => {
-                    console.log("Submitting:", {
-                    //   image: imageSrc ? "present" : "none",
-                      description,
-                    });
-                    alert("Post submitted!");
+                    CreatePost();
                   }}
                 >
                   Post

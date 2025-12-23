@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import { HiOutlinePhoto } from 'react-icons/hi2'
+type MenuItemName = "All Posts" | "My Activity" | "Saved Post";
+interface MenuProps {
+  activeItem: MenuItemName;
+  setActiveItem: (item: MenuItemName) => void;
+}
 
-export const Menu = () => {
-    type MenuItemName = "All Posts" | "My Activity" | "Saved Post";
+export const Menu: React.FC<MenuProps> = ({ activeItem, setActiveItem }) => {
 
-      const [activeItem, setActiveItem] = useState<MenuItemName>("All Posts");
     
       const handleItemClick = (itemName: MenuItemName) => {
         setActiveItem(itemName);

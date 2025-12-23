@@ -5,11 +5,19 @@ const {
     getPosts,
     uploadMiddleware,
     updatePost,
-    deletePost
-} = require("../controllers/postController");
+    deletePost,
+    toggleLike,
+    getMyActivity,
+    savePost,
+    getSavedPosts
+} = require("../controllers/PostController");
 
 router.post("/", uploadMiddleware,createPost);
 router.get("/", getPosts);
+router.post("/toggle-likes", toggleLike);
+router.get("/my-activity/:user_name", getMyActivity);
+router.post("/savePost", savePost);
+router.get("/saved-post/:user_name", getSavedPosts);
 router.put("/:id", uploadMiddleware,updatePost);
 router.delete("/:id", deletePost);
 

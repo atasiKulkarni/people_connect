@@ -16,13 +16,15 @@ interface Employee {
 
 export const NoticeBoard = () => {
   const employeeList = useSelector(selectEmployee);
-  const eventList = useSelector(selectEvent) as
-    | {
-        birthdays?: EventItem[];
-        anniversaries?: EventItem[];
-        leaves?: EventItem[];
-      }
-    | never;
+  const eventList = (useSelector(selectEvent) || {
+    birthdays: [],
+    anniversaries: [],
+    leaves: [],
+  }) as {
+    birthdays?: EventItem[];
+    anniversaries?: EventItem[];
+    leaves?: EventItem[];
+  };
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [show, setShow] = useState(false); // Controls the main modal visibility
   const [searchTerm, setSearchTerm] = useState("");
@@ -209,8 +211,8 @@ export const NoticeBoard = () => {
           </p>
 
           {/* Birthdays */}
-          {eventList.birthdays &&
-            eventList.birthdays.map((event) => (
+          {eventList?.birthdays &&
+            eventList?.birthdays?.map((event) => (
               <div key={event.first_name} className="flex items-center mb-4">
                 {event.profile_picture ? (
                   <img
@@ -239,8 +241,8 @@ export const NoticeBoard = () => {
             ))}
 
           {/* Anniversaries */}
-          {eventList.anniversaries &&
-            eventList.anniversaries.map((event) => (
+          {eventList?.anniversaries &&
+            eventList?.anniversaries.map((event) => (
               <div key={event.first_name} className="flex items-center mb-4">
                 {event.profile_picture ? (
                   <img
@@ -268,7 +270,7 @@ export const NoticeBoard = () => {
               </div>
             ))}
 
-          {!eventList.birthdays?.length && !eventList.anniversaries?.length && (
+          {!eventList?.birthdays?.length && !eventList?.anniversaries?.length && (
             <p className="text-gray-500 font-[Rubik] text-sm text-center py-4">
               No events today.
             </p>
