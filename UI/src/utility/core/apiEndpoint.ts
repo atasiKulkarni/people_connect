@@ -8,6 +8,7 @@ export enum API_ENDPOINTS {
      POSTLIKE = "/api/engage/toggle-likes",
      GETMYACTIVITY = '/api/engage/my-activity/Atasi',
     SAVEPOST = "/api/engage/savePost",
-     GETSAVEDPOST = '/api/engage/saved-post/Atasi'
+     GETSAVEDPOST = '/api/engage/saved-post/Atasi',
+     LOGIN = '/api/auth/sso'
 
   }

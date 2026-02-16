@@ -18,6 +18,7 @@ import companyPolicy from "../assets/policy.webp"
 import events from "../assets/calendar.png"
 import reward from "../assets/reward.avif"
 import chatbot from "../assets/chat-bot.jpg"
+import timeCard from "../assets/punch-in-out.png"
 
 export const Image =  {
     connect,
@@ -39,5 +40,6 @@ export const Image =  {
     timesheet,
     companyPolicy,
     reward,
-    birthdayWish
+    birthdayWish,
+    timeCard
 }

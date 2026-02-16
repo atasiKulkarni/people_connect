@@ -1,5 +1,7 @@
 import React  from 'react'
+import { BsActivity } from 'react-icons/bs';
 import { HiOutlinePhoto } from 'react-icons/hi2'
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 type MenuItemName = "All Posts" | "My Activity" | "Saved Post";
 interface MenuProps {
   activeItem: MenuItemName;
@@ -68,7 +70,7 @@ export const Menu: React.FC<MenuProps> = ({ activeItem, setActiveItem }) => {
                  className={getClasses("My Activity")}
                  onClick={() => handleItemClick("My Activity")}
                >
-                 <HiOutlinePhoto className="w-6 h-6" color="gray" />
+                 <BsActivity className="w-6 h-6" color="gray" />
                  <p className="text-gray-800 font-[Rubik] font-normal text-sm ml-2">
                    My Activity
                  </p>
@@ -79,7 +81,7 @@ export const Menu: React.FC<MenuProps> = ({ activeItem, setActiveItem }) => {
                  className={getClasses("Saved Post")}
                  onClick={() => handleItemClick("Saved Post")}
                >
-                 <HiOutlinePhoto className="w-6 h-6" color="gray" />
+                 <IoBookmarkOutline className="w-6 h-6" color="gray" />
                  <p className="text-gray-800 font-[Rubik] font-normal text-sm ml-2">
                    Saved Post
                  </p>

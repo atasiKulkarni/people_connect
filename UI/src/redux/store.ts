@@ -2,6 +2,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import bannerReducer from "../features/Banner/slice/BannerSlice"
 import employeeReducer from "../features/Employee/slice/EmployeeSlice"
+import loginReducer from "../features/Login/slice/LoginSlice"
 import eventReducer from "../features/Events/slice/EventSlice"
 import appSettingsReducer from '../features/AppSettings/slice/AppSettingsSlice';
 import engageReducer from "../features/Engage/slice/EngageSlice"
@@ -11,7 +12,8 @@ export const store = configureStore({
     banners: bannerReducer,
     employee: employeeReducer,
     event: eventReducer,
-    engage: engageReducer
+    engage: engageReducer,
+    login: loginReducer,
   },
 });
 

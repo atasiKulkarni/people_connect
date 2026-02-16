@@ -110,7 +110,12 @@ export const engageSlice = createSlice({
         })
         .addCase(toggleSave.fulfilled, (state, action: PayloadAction<SaveState>) => {
           const { post_id, saved } = action.payload;
-          
+          const index = state.items.findIndex(p => p.id === action.payload.post_id);
+
+          if (index !== -1) {
+            // Update the property. Redux Toolkit (Immer) handles the immutability here
+            state.items[index].is_saved = action.payload.saved;
+          }
           const existingPost = state.items.find((item) => item.id === post_id);
           
           if (existingPost) {

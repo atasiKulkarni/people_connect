@@ -1,0 +1,5 @@
+/* Styles for TimeCard component */
+.my-component {
+  display: flex;
+  flex-direction: column;
+}

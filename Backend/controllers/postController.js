@@ -74,17 +74,19 @@ const createPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
-  const { user_name } = req.query; // Pass current user to see what they liked
+  const { user_name } = req.query; 
   try {
     const result = await pool.query(
       `SELECT e.*, 
        (SELECT COUNT(*) FROM LikePost WHERE post_id = e.id) as total_likes,
+       -- Check if THIS user liked it
        EXISTS(SELECT 1 FROM LikePost WHERE post_id = e.id AND user_name = $1) as is_liked,
        (SELECT COUNT(*) FROM SavePost WHERE post_id = e.id) as total_saved_post,
+       -- Check if THIS user saved it
        EXISTS(SELECT 1 FROM SavePost WHERE post_id = e.id AND user_name = $1) as is_saved
        FROM Engage e 
        ORDER BY e.created_at DESC`,
-      [user_name || ""]
+      [user_name || ""] 
     );
 
     const formattedResults = result.rows.map((event) => ({
@@ -97,6 +99,7 @@ const getPosts = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 const updatePost = async (req, res) => {
   const { id } = req.params;
@@ -242,6 +245,9 @@ const savePost = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
+
+
 
 // Fetch all saved posts for a user
 const getSavedPosts = async (req, res) => {

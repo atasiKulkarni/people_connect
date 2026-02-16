@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
@@ -32,7 +32,7 @@ export const Engage = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [myActivityList, setMyActivityList] = useState<EngagePost[]>([]);
   const [mySavedPost, setMySavedPost] = useState<EngagePost[]>([]);
-
+console.log("engageList-->",engageList);
   useEffect(() => {
     if (status === "idle") {
       dispatch(getPost());
@@ -115,6 +115,7 @@ export const Engage = () => {
   };
 
   const handleLike = (id: number) => {
+
     const numericId = Number(id);
 
     dispatch(toggleLike(numericId))
@@ -125,7 +126,8 @@ export const Engage = () => {
       .catch((err) => console.log("Error:", err));
   };
 
-  const handleSave = (id: number) => {
+  const handleSave = (  id: number) => {
+  
     const numericId = Number(id);
     dispatch(toggleSave(numericId))
       .unwrap()
@@ -233,7 +235,7 @@ export const Engage = () => {
                         className="flex text-black font-[Rubik] font-normal text-sm py-5 ml-5"
                         onClick={() => handleLike(item.id)}
                       >
-                        {item.is_liked ? (
+                        {item.is_liked? (
                           <FaHeart
                             className="w-6 h-6 transition-colors duration-300 group-hover:text-blue-500"
                             style={{ color: "red" }}
@@ -270,7 +272,7 @@ export const Engage = () => {
                   >
                     <div className="flex text-black font-[Rubik] font-normal text-sm p-5">
                       {item.is_saved ? (
-                        <IoBookmark className="w-6 h-5 transition-colors duration-300 text-blue-500" />
+                        <IoBookmark className="w-6 h-5 transition-colors duration-300 text-blue-500"   style={{ color: "#1E90FF" }}/>
                       ) : (
                         <IoBookmarkOutline className="w-6 h-5 transition-colors duration-300 group-hover:text-blue-500" />
                       )}

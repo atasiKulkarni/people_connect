@@ -13,6 +13,7 @@ export const Sidebar = ({ setIsOpen }: SidebarProps) => {
 
   const moreApps = [
     { name: "Dashboard", image: Image.dashboard, navigate: "/home" },
+    { name: "Time Card", image: Image.timeCard, navigate: "/home/timeCard" },
     { name: "Employee", image: Image.employee, navigate: "/home/employee" },
     { name: "Engage", image: Image.engage, navigate: "/home/engage" },
     { name: "Timesheet", image: Image.timesheet, navigate: "/home/dashboard" },
