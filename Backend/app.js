@@ -14,6 +14,14 @@ var bannerRoute = require('./routes/BannerRoute')
 var postRoute = require('./routes/PostRoute')
 var authRoute = require('./routes/AuthRoutes');
 
+
+const allowedOrigins = [
+  'https://people-connect-1xsa2d3ow-atasi-kulkarnis-projects.vercel.app', // no trailing slash
+  'https://people-connect-backend.onrender.com',
+  'http://localhost:5173',
+]
+
+
 // Make the uploads folder publicly accessible via the /public route
 app.use('/public', express.static('uploads'));
 
@@ -21,8 +29,17 @@ app.use('/public', express.static('uploads'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 // app.use(cors({  origin: "http://localhost:5173",  methods: ["GET", "POST", "OPTIONS"],  allowedHeaders: ["Content-Type", "Authorization"],}));
-app.use(cors({  origin: "https://people-connect-1xsa2d3ow-atasi-kulkarnis-projects.vercel.app/",  methods: ["GET", "POST", "OPTIONS"],  allowedHeaders: ["Content-Type", "Authorization"],}));
+// app.use(cors({  origin: "https://people-connect-1xsa2d3ow-atasi-kulkarnis-projects.vercel.app/",  methods: ["GET", "POST", "OPTIONS"],  allowedHeaders: ["Content-Type", "Authorization"],}));
 
+app.use(cors({  origin: function (origin, callback) {    // Allow Postman (no origin) and same-origin requests    
+ if (!origin) return callback(null, true);    
+ if (allowedOrigins.includes(origin)) return callback(null, true);   
+  return callback(new Error('Not allowed by CORS: ' + origin)); 
+ },  
+ methods: ['GET', 'POST', 'OPTIONS'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+   credentials: true
+  }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
