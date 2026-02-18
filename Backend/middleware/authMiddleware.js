@@ -1,18 +1,17 @@
-
+// backend/middleware/auth.js
 const jwt = require("jsonwebtoken");
-const jwksClient = require("jwks-rsa");
-const fetch = require("node-fetch"); // npm i node-fetch@2 (if not already)
+const jwksClientLib = require("jwks-rsa");
+const fetch = require("node-fetch");
 const HttpsProxyAgent = require("https-proxy-agent");
 
-// Env
+// ===== ENV =====
 const {
   AZURE_TENANT_ID,
-  EXPECTED_AUDIENCE,   // set to api://<YOUR_API_APP_CLIENT_ID>
-  AZURE_CLIENT_ID,     // fallback only
-  EXPECTED_ISSUER,     // optional: comma-separated allow-list
-  HTTPS_PROXY          // optional: http(s)://user:pass@host:port
+  EXPECTED_AUDIENCE,   // e.g., api://ab38f303-d51a-4898-8214-aa7905459c37
+  AZURE_CLIENT_ID,     // optional fallback if you prefer
+  EXPECTED_ISSUER,     // optional comma-separated allow-list
+  HTTPS_PROXY          // optional
 } = process.env;
-
 
 const expectedAudience = EXPECTED_AUDIENCE || AZURE_CLIENT_ID;
 const defaultIssuers = [
@@ -23,11 +22,15 @@ const expectedIssuers = (EXPECTED_ISSUER
   ? EXPECTED_ISSUER.split(",").map(s => s.trim()).filter(Boolean)
   : defaultIssuers);
 
-// Cache metadata + jwks clients per jwks_uri
-const metadataCache = new Map();     // key: metadata URL -> openid config JSON
-const jwksClientCache = new Map();   // key: jwks_uri -> jwksClient
+if (!AZURE_TENANT_ID || !expectedAudience) {
+  console.warn("[AUTH] Missing AZURE_TENANT_ID or EXPECTED_AUDIENCE/AZURE_CLIENT_ID. Token validation may fail.");
+}
 
-const agent = HTTPS_PROXY ? new HttpsProxyAgent(HTTPS_PROXY) : undefined;
+const agent = HTTPS_PROXY ? new HttpsProxyAgent(HttpsProxyAgent.prototype ? HTTPS_PROXY : { proxy: HTTPS_PROXY }) : undefined;
+
+// ===== Metadata + JWKS caches =====
+const metadataCache = new Map();   // metadata URL -> JSON
+const jwksClientCache = new Map(); // jwks_uri -> client
 
 async function getOpenIdMetadata(iss, tid) {
   const base = `https://login.microsoftonline.com/${tid}`;
@@ -38,9 +41,7 @@ async function getOpenIdMetadata(iss, tid) {
   if (metadataCache.has(metadataUrl)) return metadataCache.get(metadataUrl);
 
   const resp = await fetch(metadataUrl, { agent });
-  if (!resp.ok) {
-    throw new Error(`Failed to fetch OpenID metadata: ${metadataUrl} -> ${resp.status}`);
-  }
+  if (!resp.ok) throw new Error(`Failed to fetch OpenID metadata: ${metadataUrl} -> ${resp.status}`);
   const json = await resp.json();
   metadataCache.set(metadataUrl, json);
   return json;
@@ -48,7 +49,7 @@ async function getOpenIdMetadata(iss, tid) {
 
 function getJwksClient(jwksUri) {
   if (jwksClientCache.has(jwksUri)) return jwksClientCache.get(jwksUri);
-  const client = jwksClient({
+  const client = jwksClientLib({
     jwksUri,
     cache: true,
     cacheMaxEntries: 50,
@@ -63,7 +64,6 @@ function getJwksClient(jwksUri) {
 }
 
 async function verifyTokenWithDynamicJwks(token) {
-  // Decode (unverified) to choose metadata endpoints
   const decoded = jwt.decode(token, { complete: true });
   if (!decoded?.header?.kid) throw new Error("Missing 'kid' in token header");
   const iss = decoded?.payload?.iss;
@@ -71,14 +71,11 @@ async function verifyTokenWithDynamicJwks(token) {
   if (!iss) throw new Error("Missing 'iss' claim");
   if (!tid) throw new Error("Missing 'tid' and AZURE_TENANT_ID");
 
-  // 1) Resolve OpenID metadata for this issuer/tenant
   const metadata = await getOpenIdMetadata(iss, tid);
-  // 2) Use the jwks_uri provided by metadata (v1 may be /common/discovery/keys)
   const jwksUri = metadata.jwks_uri;
   if (!jwksUri) throw new Error("OpenID metadata missing 'jwks_uri'");
   const client = getJwksClient(jwksUri);
 
-  // 3) Build getKey for jsonwebtoken
   const getKey = (header, callback) => {
     client.getSigningKey(header.kid, (err, key) => {
       if (err) return callback(err);
@@ -93,33 +90,59 @@ async function verifyTokenWithDynamicJwks(token) {
       {
         algorithms: ["RS256"],
         audience: expectedAudience,
-        issuer: expectedIssuers, // accept both v2 and sts
+        issuer: expectedIssuers,
         clockTolerance: 30
       },
-      (err, decodedVerified) => (err ? reject(err) : resolve(decodedVerified))
+      (err, verified) => (err ? reject(err) : resolve(verified))
     );
   });
 }
 
-const verifySSO = async (req, res) => {
+/** Middleware: requireAuth
+ *  - Extracts Bearer token
+ *  - Verifies signature, issuer, audience
+ *  - Attaches claims to req.user
+ */
+async function requireAuth(req, res, next) {
   try {
     const authHeader = req.headers.authorization || "";
-    const tokenFromHeader = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
-    const token = tokenFromHeader || req.body?.Token;
-    if (!token) return res.status(400).json({ error: "Token required" });
+    const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
 
-    // Optional diagnostics (remove in prod)
-    const d = jwt.decode(token, { complete: true });
-    console.log("alg:", d?.header?.alg, "kid:", d?.header?.kid);
-    console.log("aud:", d?.payload?.aud, "iss:", d?.payload?.iss, "tid:", d?.payload?.tid);
-    console.log("scp:", d?.payload?.scp, "roles:", d?.payload?.roles);
+    if (!token) {
+      return res.status(401).json({ error: "Authentication required: missing Bearer token" });
+    }
 
-    const decoded = await verifyTokenWithDynamicJwks(token);
-    return res.json({ message: "Login successful", user: decoded });
+    const verified = await verifyTokenWithDynamicJwks(token);
+    req.user = verified; // attach claims for downstream use
+    next();
   } catch (err) {
-    console.error("Verification Error:", err);
+    console.error("[AUTH] verify error:", err.message);
     return res.status(401).json({ error: "Invalid token", details: err.message });
   }
-};
+}
 
-module.exports = { verifySSO };
+/** Middleware: requireScope('sso_login_backend', ...)
+ *  - Ensures token has required scopes (in 'scp' claim for delegated flows)
+ */
+function requireScope(...scopes) {
+  return (req, res, next) => {
+    const scp = req.user?.scp || req.user?.scopes || "";
+    const tokenScopes = Array.isArray(scp) ? scp : String(scp).split(" ").filter(Boolean);
+    const ok = scopes.every(s => tokenScopes.includes(s));
+    if (!ok) {
+      return res.status(403).json({
+        error: "Insufficient scope",
+        required: scopes,
+        tokenScopes
+      });
+    }
+    next();
+  };
+}
+
+module.exports = {
+  requireAuth,
+  requireScope,
+  // export this in case you want a verification endpoint:
+  verifyTokenWithDynamicJwks
+};
