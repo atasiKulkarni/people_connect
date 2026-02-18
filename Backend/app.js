@@ -21,10 +21,15 @@ const allowedOrigins = [
   'http://localhost:5173',
 ]
 
+const UPLOAD_DIR = path.join(__dirname, 'uploads'); 
+if (!fs.existsSync(UPLOAD_DIR)) {  
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true });  
+  console.log('[INIT] created uploads dir:', UPLOAD_DIR);
+}
 
 // Make the uploads folder publicly accessible via the /public route
-app.use('/public', express.static('uploads'));
-
+// app.use('/public', express.static('uploads'));
+app.use('/public', express.static(UPLOAD_DIR));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
