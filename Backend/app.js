@@ -21,7 +21,7 @@ app.use('/public', express.static('uploads'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 // app.use(cors({  origin: "http://localhost:5173",  methods: ["GET", "POST", "OPTIONS"],  allowedHeaders: ["Content-Type", "Authorization"],}));
-app.use(cors({  origin: "https://people-connect-ten.vercel.app",  methods: ["GET", "POST", "OPTIONS"],  allowedHeaders: ["Content-Type", "Authorization"],}));
+app.use(cors({  origin: "https://people-connect-1xsa2d3ow-atasi-kulkarnis-projects.vercel.app/",  methods: ["GET", "POST", "OPTIONS"],  allowedHeaders: ["Content-Type", "Authorization"],}));
 
 app.use(logger('dev'));
 app.use(express.json());
