@@ -21,11 +21,7 @@ const allowedOrigins = [
   'http://localhost:5173',
 ]
 
-const UPLOAD_DIR = path.join(__dirname, 'uploads'); 
-if (!fs.existsSync(UPLOAD_DIR)) {  
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true });  
-  console.log('[INIT] created uploads dir:', UPLOAD_DIR);
-}
+
 
 // Make the uploads folder publicly accessible via the /public route
 // app.use('/public', express.static('uploads'));
@@ -36,15 +32,13 @@ app.set('view engine', 'jade');
 // app.use(cors({  origin: "http://localhost:5173",  methods: ["GET", "POST", "OPTIONS"],  allowedHeaders: ["Content-Type", "Authorization"],}));
 // app.use(cors({  origin: "https://people-connect-1xsa2d3ow-atasi-kulkarnis-projects.vercel.app/",  methods: ["GET", "POST", "OPTIONS"],  allowedHeaders: ["Content-Type", "Authorization"],}));
 
-app.use(cors({  origin: function (origin, callback) {    // Allow Postman (no origin) and same-origin requests    
- if (!origin) return callback(null, true);    
- if (allowedOrigins.includes(origin)) return callback(null, true);   
-  return callback(new Error('Not allowed by CORS: ' + origin)); 
- },  
- methods: ['GET', 'POST', 'OPTIONS'], 
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-   credentials: true
-  }));
+app.use(cors({
+  origin: ['https://your-vercel-domain.vercel.app', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
