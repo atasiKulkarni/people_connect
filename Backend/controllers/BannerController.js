@@ -36,12 +36,32 @@ const getBannerById = async (req, res) => {
 };
 
 // Add new banner
+// const addBanner = async (req, res) => {
+//   const { title, description } = req.body;
+//   const image_url = req.file ? `/public/${req.file.filename}` : null;
+
+//   if (!image_url) {
+//     return res.status(400).send("Image upload failed or no file provided.");
+//   }
+
+//   try {
+//     const result = await pool.query(
+//       "INSERT INTO Banners (title, description, image_url) VALUES ($1, $2, $3) RETURNING *",
+//       [title, description, image_url]
+//     );
+//     res.status(201).json(result.rows[0]);
+//   } catch (err) {
+//     // Look at your Node terminal for the EXACT error message here
+//     console.error("DEBUG: Database query failed:", err.message); 
+//     res.status(500).send("Internal Server Error: " + err.message);
+//   }
+// };
+
 const addBanner = async (req, res) => {
-  const { title, description } = req.body;
-  const image_url = req.file ? `/public/${req.file.filename}` : null;
+  const { title, description, image_url } = req.body;
 
   if (!image_url) {
-    return res.status(400).send("Image upload failed or no file provided.");
+    return res.status(400).send("Image URL required.");
   }
 
   try {
@@ -51,12 +71,10 @@ const addBanner = async (req, res) => {
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    // Look at your Node terminal for the EXACT error message here
-    console.error("DEBUG: Database query failed:", err.message); 
-    res.status(500).send("Internal Server Error: " + err.message);
+    console.error("DEBUG: Database query failed:", err.message);
+    res.status(500).json({ error: "Internal Server Error", details: err.message });
   }
 };
-
 // Update banner
 const updateBanner = async (req, res) => {
   const { id } = req.params;
