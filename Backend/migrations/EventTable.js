@@ -4,19 +4,12 @@ const EventsTable = async () => {
   const query = `
     CREATE TABLE IF NOT EXISTS events (
       id SERIAL PRIMARY KEY,
-      
-      -- Reference the Employee table (assuming you have one with a primary key 'id')
       employee_id INT NOT NULL REFERENCES Employee(id),
 
       -- Define the type of event (e.g., 'birthday', 'anniversary', 'leave')
       event_type VARCHAR(50) NOT NULL, 
-
-      -- The specific date the event occurs (can use this for leaves too)
       event_date DATE NOT NULL,
-
-      -- Optional details like leave status or reason
       details TEXT,
-
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
@@ -40,3 +33,5 @@ const EventsTable = async () => {
         pool.end(); 
     }
 })();
+
+module.exports = EventsTable;

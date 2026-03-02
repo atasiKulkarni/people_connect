@@ -24,4 +24,4 @@ const Leaves = async () => {
   }
 };
 
-Leaves();
+module.exports = Leaves;

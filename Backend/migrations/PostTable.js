@@ -23,4 +23,4 @@ const PostTable = async () => {
   }
 };
 
-PostTable();
+module.exports = PostTable;

@@ -16,8 +16,6 @@ const Banners = async () => {
   } catch (err) {
     console.error("❌ Error creating 'Banners' table:", err.message);
   }
-  // ❌ REMOVE THIS LINE:
-  // pool.end();
 };
 
 module.exports = Banners;

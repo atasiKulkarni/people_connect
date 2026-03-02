@@ -20,4 +20,4 @@ const SavePost = async () => {
   }
 };
 
-SavePost();
+module.exports = SavePost;

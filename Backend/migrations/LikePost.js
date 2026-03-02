@@ -20,4 +20,4 @@ const LikePost = async () => {
   }
 };
 
-LikePost();
+module.exports = LikePost;

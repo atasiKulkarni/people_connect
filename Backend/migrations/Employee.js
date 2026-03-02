@@ -88,8 +88,6 @@ const Employee = async () => {
   } catch (err) {
     console.error("❌ Error creating 'Employee' table:", err.message);
   }
-  // ❌ REMOVE THIS LINE:
-  // pool.end();
 };
 
 module.exports = Employee;
