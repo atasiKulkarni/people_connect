@@ -78,80 +78,10 @@ var logger = require("morgan");
 const cors = require("cors");
 const fs = require("fs");
 var app = express();
-// const Banners = require("./migrations/Banners");
-// const Employee = require("./migrations/Employee");
-// const EventsTable = require("./migrations/EventTable");
-// const Leaves = require("./migrations/Leaves");
-// const LikePost = require("./migrations/LikePost");
-// const PostTable = require("./migrations/PostTable");
-// const SavePost = require("./migrations/SavePost");
+
 // ===== DATABASE INITIALIZATION =====
 const pool = require("./config/db");
 
-// async function initializeDatabase() {
-//   // try {
-//   //   const createTableQuery = `
-//   //     CREATE TABLE IF NOT EXISTS Banners (
-//   //       id SERIAL PRIMARY KEY,
-//   //       title VARCHAR(255) NOT NULL,
-//   //       description TEXT,
-//   //       image_url TEXT NOT NULL,
-//   //       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//   //     );
-//   //   `;
-
-//   //   const createEmployeeQuery = `
-//   //   CREATE TABLE IF NOT EXISTS Banners (
-//   //     id SERIAL PRIMARY KEY,
-//   //     first_name VARCHAR(255) NOT NULL,
-//   //     last_name TEXT,
-//   //     profile_picture TEXT NOT NULL,
-//   //      gender TEXT,
-//   //     employee_id TEXT,
-//   //       designation TEXT,
-//   //        department TEXT,
-//   //         email TEXT,
-//   //                mobile TEXT,
-//   //                 office_location TEXT,
-//   //                   dob TEXT,
-//   //                     doj TEXT,
-//   //                       martial_status TEXT,
-//   //                        reporting_manager TEXT,
-//   //                          delivery_head TEXT,
-//   //                            emergency_contact_name TEXT,
-//   //                                                         emergency_contact TEXT,
-//   //                                                           emergency_contact_relation TEXT,
-//   //                                                           blood_group TEXT,
-//   //                                                           total_experence TEXT,
-//   //                                                            current_company_experence TEXT,
-//   //                                                             aadhar TEXT,
-//   //                                                              pan TEXT,
-//   //                                                               passport TEXT,
-//   //                                                               current_address TEXT,
-//   //                                                               permanent_address TEXT,
-//   //                                                               resume TEXT,
-                                                               
-
-//   //     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//   //   );
-//   // `;
-
-//   //   await pool.query(createTableQuery, createEmployeeQuery);
-//   //   console.log("✅ Table 'Banners' initialized successfully");
-//   // } catch (err) {
-//   //   console.error("❌ Error initializing Banners table:", err.message);
-//   // }
-//   Banners();
-//   Employee();
-//   EventsTable();
-//   Leaves();
-//   LikePost();
-//   PostTable();
-//   SavePost();
-// }
-
-// // Initialize on app start
-// initializeDatabase();
 
 // ===== REST OF YOUR APP CODE =====
 var employeeRouter = require("./routes/EmployeeRoute");
