@@ -20,7 +20,7 @@ const formatDate = (date) => {
 
 const getEmployees = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM Employee ORDER BY id ASC");
+    const result = await pool.query("SELECT * FROM employee ORDER BY id ASC");
     const formatted = result.rows.map((emp) => ({
       ...emp,
       dob: formatDate(emp.dob),
@@ -36,7 +36,7 @@ const getEmployees = async (req, res) => {
 const getEmployeeById = async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query("SELECT * FROM Employee WHERE id = $1", [
+    const result = await pool.query("SELECT * FROM employee WHERE id = $1", [
       id,
     ]);
     if (result.rows.length === 0)
@@ -86,7 +86,7 @@ const addEmployee = async (req, res) => {
 
   try {
     const result = await pool.query(
-      `INSERT INTO Employee (
+      `INSERT INTO employee (
         first_name, last_name, gender, employee_id, designation, department, email, mobile, 
         profile_picture, dob, doj, office_location, martial_status, reporting_manager, 
         delivery_head, emergency_contact_name, emergency_contact, emergency_contact_relation, 
@@ -180,7 +180,7 @@ const updateEmployee = async (req, res) => {
 
   try {
     const result = await pool.query(
-      `UPDATE Employee SET 
+      `UPDATE employee SET 
         first_name = $1, last_name = $2, gender = $3, employee_id = $4, designation = $5, 
         department = $6, email = $7, mobile = $8, profile_picture = $9, dob = $10, 
         doj = $11, office_location = $12, martial_status = $13, reporting_manager = $14, 
@@ -244,7 +244,7 @@ const deleteEmployee = async (req, res) => {
   const { id } = req.params;
   try {
     const result = await pool.query(
-      "DELETE FROM Employee WHERE id = $1 RETURNING *",
+      "DELETE FROM employee WHERE id = $1 RETURNING *",
       [id]
     );
     if (result.rows.length === 0)

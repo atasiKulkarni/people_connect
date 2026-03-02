@@ -3,7 +3,7 @@ const pool = require('../config/db');
 
 const Employee = async () => {
   const query = `
-    CREATE TABLE IF NOT EXISTS Employee (
+    CREATE TABLE IF NOT EXISTS employee (
    id SERIAL PRIMARY KEY,
    first_name VARCHAR(50) NOT NULL,
    last_name VARCHAR(50) NOT NULL,
