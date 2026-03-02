@@ -1,5 +1,11 @@
 require('dotenv').config();
-import runAllMigrations from '../migrations/index.js';
+
+if (!process.env.DATABASE_URL) {
+  console.error("❌ ERROR: DATABASE_URL not found in .env file!");
+  process.exit(1);
+}
+
+const runAllMigrations = require('../migrations');
 
 async function runMigrations() {
   try {

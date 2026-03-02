@@ -126,6 +126,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/public", express.static(UPLOAD_DIR));
 
+
 // ===== Routes =====
 app.use("/api/employees", employeeRouter);
 app.use("/api/event", eventRouter);
