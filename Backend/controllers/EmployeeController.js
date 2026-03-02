@@ -18,15 +18,23 @@ const formatDate = (date) => {
   });
 };
 
+// const getEmployees = async (req, res) => {
+//   try {
+//     const result = await pool.query("SELECT * FROM employee ORDER BY id ASC");
+//     const formatted = result.rows.map((emp) => ({
+//       ...emp,
+//       dob: formatDate(emp.dob),
+//       doj: formatDate(emp.doj),
+//     }));
+//     res.json(formatted);
+//   } catch (err) {
+//     res.status(500).send(err.message);
+//   }
+// };
 const getEmployees = async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM employee ORDER BY id ASC");
-    const formatted = result.rows.map((emp) => ({
-      ...emp,
-      dob: formatDate(emp.dob),
-      doj: formatDate(emp.doj),
-    }));
-    res.json(formatted);
+    res.json(result.rows);
   } catch (err) {
     res.status(500).send(err.message);
   }
