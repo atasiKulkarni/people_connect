@@ -10,7 +10,7 @@ var app = express();
 
 // ===== REST OF YOUR APP CODE =====
 var employeeRoute = require("./routes/EmployeeRoute");
-var eventRoute = require("./routes/EventsRoutes");
+var eventRoute = require("./routes/EventRoute");
 var bannerRoute = require("./routes/BannerRoute");
 var postRoute = require("./routes/PostRoute");
 var authRoute = require("./routes/AuthRoutes");
