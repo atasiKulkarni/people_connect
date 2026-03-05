@@ -15,9 +15,7 @@ const LikePost = async () => {
     console.log("✅ Table 'LikePost' created successfully.");
   } catch (err) {
     console.error("❌ Error creating 'LikePost' table:", err.message);
-  } finally {
-    pool.end(); // Close the DB connection
-  }
+  } 
 };
 
 module.exports = LikePost;

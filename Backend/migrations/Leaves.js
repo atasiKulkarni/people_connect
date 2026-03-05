@@ -19,9 +19,7 @@ const Leaves = async () => {
     console.log("✅ Table 'Leaves' created successfully.");
   } catch (err) {
     console.error("❌ Error creating Leaves table:", err.message);
-  } finally {
-    pool.end(); // Close the DB connection after the operation
-  }
+  } 
 };
 
 module.exports = Leaves;

@@ -21,17 +21,4 @@ const EventsTable = async () => {
   }
 };
 
-
-// --- Execution ---
-(async () => {
-    try {
-        await EventsTable();
-    } catch (error) {
-        console.error("An error occurred during table creation process:", error.message);
-    } finally {
-        // Close the DB connection
-        pool.end(); 
-    }
-})();
-
 module.exports = EventsTable;

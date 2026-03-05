@@ -18,9 +18,7 @@ const PostTable = async () => {
     console.log("✅ Table 'Engage' created successfully.");
   } catch (err) {
     console.error("❌ Error creating 'Engage' table:", err.message);
-  } finally {
-    pool.end(); // Close the DB connection
-  }
+  } 
 };
 
 module.exports = PostTable;

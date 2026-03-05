@@ -15,9 +15,7 @@ const SavePost = async () => {
     console.log("✅ Table 'SavePost' created successfully.");
   } catch (err) {
     console.error("❌ Error creating 'SavePost' table:", err.message);
-  } finally {
-    pool.end(); // Close the DB connection
-  }
+  } 
 };
 
 module.exports = SavePost;
