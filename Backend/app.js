@@ -79,6 +79,8 @@ const cors = require("cors");
 const fs = require("fs");
 var app = express();
 
+var EmployeeMigration = require('./migrations/Employee.js');
+EmployeeMigration();
 
 // ===== REST OF YOUR APP CODE =====
 var employeeRouter = require("./routes/EmployeeRoute");
@@ -92,8 +94,6 @@ const UPLOAD_DIR = path.join(__dirname, "uploads");
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }
-const EmployeeMigration = require('./migrations/Employee');
-EmployeeMigration();
 
 // ===== CORS Configuration =====
 const allowedOrigins = [
