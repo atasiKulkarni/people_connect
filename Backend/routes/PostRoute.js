@@ -12,7 +12,7 @@ const {
     getMyActivity,
     savePost,
     getSavedPosts
-} = require("../controllers/PostController");
+} = require("../controllers/PostController.js");
 
 router.post("/", requireAuth,uploadMiddleware,createPost);
 router.get("/", requireAuth,getPosts);

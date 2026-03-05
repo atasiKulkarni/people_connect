@@ -6,7 +6,7 @@ const {
   fetchTodayAnniversaries,
   fetchTodayLeaves,
   getTodayEvents,
-} = require("../controllers/EventController");
+} = require("../controllers/EventController.js");
 
 router.get("/todays-birthdays", requireAuth,fetchTodayBirthdays);
 router.get("/todays-anniversary", requireAuth,fetchTodayAnniversaries);
