@@ -1,4 +1,4 @@
-import { API_ENDPOINTS } from "../../../utility/core/apiEndpoint";
+// import { API_ENDPOINTS } from "../../../utility/core/apiEndpoint";
 
 export enum BannerUrlType {
   banner,
@@ -10,7 +10,8 @@ export const getBannerScreenRequestURL = (urlType: BannerUrlType) => {
   switch (urlType) {
     case BannerUrlType.banner:
       console.log("BASE_URL-->", baseUrl);
-      return `${baseUrl}${API_ENDPOINTS.BANNER}`;
+      // return `${baseUrl}${API_ENDPOINTS.BANNER}`;
+      return 'https://people-connect-backend.onrender.com/api/banner'
 
     default:
       return '';
