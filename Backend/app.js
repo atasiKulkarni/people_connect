@@ -12,7 +12,7 @@ var app = express();
 var employeeRoute = require("./routes/EmployeeRoute");
 var eventRoute = require("./routes/EventRoute");
 var bannerRoute = require("./routes/BannerRoute");
-var postRoute = require("./routes/PostRoute");
+var postRoute = require("./routes/PostRoute")
 var authRoute = require("./routes/AuthRoutes");
 
 // ===== Setup Upload Directory =====
