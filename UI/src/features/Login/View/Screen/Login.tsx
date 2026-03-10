@@ -79,6 +79,9 @@ export const Login = () => {
         <p className="text-black font-[Rubik] text-2xl font-normal mt-5">
           Single sign on
         </p>
+        <p className="text-black font-[Rubik] text-2xl font-normal mt-5">
+          LOGIN
+        </p>
         <p className="text-black font-[Rubik] text-sm font-normal mt-2">
           Sign in with your identity provider
         </p>
