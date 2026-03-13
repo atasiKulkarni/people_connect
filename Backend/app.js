@@ -23,7 +23,7 @@ if (!fs.existsSync(UPLOAD_DIR)) {
 
 // ===== CORS Configuration =====
 const allowedOrigins = [
-  "https://people-connect-1xsa2d3ow-atasi-kulkarnis-projects.vercel.app",
+  "https://people-connect-ten.vercel.app/",
   "https://people-connect-backend.onrender.com",
   "http://localhost:5173",
   "http://localhost:3000",
