@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "chmod +x node_modules/.bin/vite && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "engines": {
+  "node": ">=16"
+},
   "dependencies": {
     "@azure/msal-browser": "^4.25.0",
     "@azure/msal-react": "^3.0.20",
