@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import { CiMail } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 import { PiUserCirclePlusLight } from "react-icons/pi";

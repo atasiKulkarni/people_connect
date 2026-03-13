@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CiSearch } from "react-icons/ci";
 import { PaginatedTable } from "../component/PaginatedTable";

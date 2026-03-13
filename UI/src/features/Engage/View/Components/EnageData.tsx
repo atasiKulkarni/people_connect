@@ -1,3 +1,4 @@
+import React from "react";
 import { HiOutlinePhoto } from "react-icons/hi2";
 import { Image } from "../../../../utility/Image";
 import { GrAttachment } from "react-icons/gr";

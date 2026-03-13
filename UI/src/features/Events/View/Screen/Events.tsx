@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import  React, { useEffect, useState } from "react";
 import { Leave } from "../Components/Leave";
 import { Birthday } from "../Components/Birthday";
 import { WorkAnniversary } from "../Components/WorkAnniversary";

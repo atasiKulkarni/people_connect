@@ -1,3 +1,4 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Image } from "../../../../utility/Image";
 import { useMsal } from "@azure/msal-react";
@@ -9,6 +10,7 @@ import {
 import { SSOLogin } from "../../action/LoginAction";
 import type { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
+
 export const Login = () => {
   const { instance, accounts } = useMsal();
   const navigation = useNavigate();
@@ -79,9 +81,7 @@ export const Login = () => {
         <p className="text-black font-[Rubik] text-2xl font-normal mt-5">
           Single sign on
         </p>
-        <p className="text-black font-[Rubik] text-2xl font-normal mt-5">
-          LOGIN
-        </p>
+
         <p className="text-black font-[Rubik] text-sm font-normal mt-2">
           Sign in with your identity provider
         </p>

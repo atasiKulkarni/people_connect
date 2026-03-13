@@ -1,7 +1,7 @@
 import React  from 'react'
 import { BsActivity } from 'react-icons/bs';
 import { HiOutlinePhoto } from 'react-icons/hi2'
-import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
+import { IoBookmarkOutline } from 'react-icons/io5';
 type MenuItemName = "All Posts" | "My Activity" | "Saved Post";
 interface MenuProps {
   activeItem: MenuItemName;

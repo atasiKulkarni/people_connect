@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { HiOutlinePhoto } from "react-icons/hi2";
 
 interface UploadProps {

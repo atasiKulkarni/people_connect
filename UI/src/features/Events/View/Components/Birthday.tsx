@@ -1,3 +1,4 @@
+import React from "react";
 import { Image } from "../../../../utility/Image";
 import { getInitials } from "../../../../utility/Initials";
 import type { EventItem } from "../../model/EventModel";

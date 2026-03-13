@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Image } from "../../../../utility/Image";
 import { IoMdClose } from "react-icons/io";
 import { RiSendPlaneFill } from "react-icons/ri";
