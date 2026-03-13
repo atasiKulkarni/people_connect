@@ -16,7 +16,19 @@ export const Login = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const GoToDashboard = async () => {
+    
     try {
+      const activeAccount = instance.getActiveAccount();
+      if (activeAccount) {
+        const tokenResponse = await instance.acquireTokenSilent({
+          scopes: ["User.Read"],
+          account: activeAccount,
+        });
+        console.log("Token acquired silently:", tokenResponse);
+        navigation("/home");
+        return;
+      }
+      
       // 1) Sign in
       const loginRes: AuthenticationResult = await instance.loginPopup(
         loginRequest
