@@ -1,28 +1,32 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { CiSearch } from "react-icons/ci";
 import { PaginatedTable } from "../component/PaginatedTable";
-import { useEffect, useState } from "react";
-import type { AppDispatch } from "../../../../redux/store";
-import {
-  selectEmployee,
-  selectEmployeeStatus,
-} from "../../slice/EmployeeSlice";
-import { fetchEmployee } from "../../action/EmployeeAction";
+import {  useState } from "react";
+// import type { AppDispatch } from "../../../../redux/store";
+// import {
+//   selectEmployee,
+//   selectEmployeeStatus,
+// } from "../../slice/EmployeeSlice";
+// import { fetchEmployee } from "../../action/EmployeeAction";
 
 export const Employee = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const employeeList = useSelector(selectEmployee);
-  const status = useSelector(selectEmployeeStatus);
+  // const dispatch = useDispatch<AppDispatch>();
+  // const employeeList = useSelector(selectEmployee);
+  // const status = useSelector(selectEmployeeStatus);
   const [searchTerm, setSearchTerm] = useState("");
   
-  useEffect(() => {
-    // Only dispatch if status is 'idle'
-    if (status === "idle") {
-      dispatch(fetchEmployee());
-    }
-  }, [status, dispatch]);
+  // useEffect(() => {
+  //   if (status === "idle") {
+  //     dispatch(fetchEmployee());
+  //   }
+  // }, [status, dispatch]);
 
+  const employeeList = [
+    {
+      first_name: "John",
+    }
+  ]
   const filteredMoreApps = employeeList.filter((empList) =>
     empList.first_name.toLowerCase().includes(searchTerm.toLowerCase())
   );

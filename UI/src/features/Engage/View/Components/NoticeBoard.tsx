@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Image } from "../../../../utility/Image";
 import { IoMdClose } from "react-icons/io";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
-import { selectEmployee } from "../../../Employee/slice/EmployeeSlice";
+// import { useSelector } from "react-redux";
+// import { selectEmployee } from "../../../Employee/slice/EmployeeSlice";
 import { getInitials } from "../../../../utility/Initials";
-import { selectEvent } from "../../../Events/slice/EventSlice";
-import type { EventItem } from "../../../Events/model/EventModel";
+// import { selectEvent } from "../../../Events/slice/EventSlice";
+// import type { EventItem } from "../../../Events/model/EventModel";
 
 interface Employee {
   id: number;
@@ -15,16 +15,43 @@ interface Employee {
 }
 
 export const NoticeBoard = () => {
-  const employeeList = useSelector(selectEmployee);
-  const eventList = (useSelector(selectEvent) || {
-    birthdays: [],
-    anniversaries: [],
-    leaves: [],
-  }) as {
-    birthdays?: EventItem[];
-    anniversaries?: EventItem[];
-    leaves?: EventItem[];
-  };
+  const employeeList =[
+    {
+      id: 1,
+      first_name: "John",
+      last_name: "Doe",
+      profile_picture: "/images/john_doe.png",
+    }
+  ]
+
+  const eventList ={
+    birthdays: [
+      {
+        first_name: "Jane",
+        last_name: "Smith",
+        profile_picture: "/images/jane_smith.png",
+      }
+    ],
+    anniversaries: [
+      {
+        first_name: "Emily",
+        last_name: "Johnson",
+        profile_picture: "/images/emily_johnson.png",
+      }
+    ]
+  }
+ 
+
+  // const employeeList = useSelector(selectEmployee);
+  // const eventList = (useSelector(selectEvent) || {
+  //   birthdays: [],
+  //   anniversaries: [],
+  //   leaves: [],
+  // }) as {
+  //   birthdays?: EventItem[];
+  //   anniversaries?: EventItem[];
+  //   leaves?: EventItem[];
+  // };
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [show, setShow] = useState(false); // Controls the main modal visibility
   const [searchTerm, setSearchTerm] = useState("");

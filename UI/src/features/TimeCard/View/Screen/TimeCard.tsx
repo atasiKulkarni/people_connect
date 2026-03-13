@@ -1,10 +1,10 @@
 import React from "react";
 import { getInitials } from "../../../../utility/Initials";
-import { useAppSelector } from "../../../../utility/hooks";
-import { fetchedLoginJson } from "../../../Login/slice/LoginSlice";
+// import { useAppSelector } from "../../../../utility/hooks";
+// import { fetchedLoginJson } from "../../../Login/slice/LoginSlice";
 
 export const TimeCard = () => {
-  const user = useAppSelector(fetchedLoginJson);
+  // const user = useAppSelector(fetchedLoginJson);
 
   const Punch = () => {};
   return (
@@ -20,7 +20,8 @@ export const TimeCard = () => {
 
           <div className="ml-4 cursor-pointer mt-5 mb-5">
             <div className="bg-white rounded-full w-25 h-25 text-[#005DAC] items-center flex justify-center font-medium font-[Rubik] text-2xl">
-              {getInitials(`${user[0].name}`)}
+              {/* {getInitials(`${user[0].name}`)} */}
+              nyra
             </div>
           </div>
 
@@ -60,7 +61,8 @@ export const TimeCard = () => {
 
           <div className="ml-4 cursor-pointer mt-5 mb-5">
             <div className="bg-white rounded-full w-25 h-25 text-[#005DAC] items-center flex justify-center font-medium font-[Rubik] text-2xl">
-              {getInitials(`${user[0].name}`)}
+              {/* {getInitials(`${user[0].name}`)} */}
+              Nyra
             </div>
           </div>
 

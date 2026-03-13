@@ -1,27 +1,42 @@
-import  React, { useEffect, useState } from "react";
+import  React, { useState } from "react";
 import { Leave } from "../Components/Leave";
 import { Birthday } from "../Components/Birthday";
 import { WorkAnniversary } from "../Components/WorkAnniversary";
-import type { AppDispatch } from "../../../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchEvent } from "../../action/EventsAction";
-import { selectEvent, selectEventStatus } from "../../slice/EventSlice";
-import type { EventItem } from "../../model/EventModel";
+// import type { AppDispatch } from "../../../../redux/store";
+// import { useDispatch, useSelector } from "react-redux";
+// import { fetchEvent } from "../../action/EventsAction";
+// import { selectEvent, selectEventStatus } from "../../slice/EventSlice";
+// import type { EventItem } from "../../model/EventModel";
 
 export const Events = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const [activeTab, setActiveTab] = useState("Leave");
-  const eventList = useSelector(selectEvent) as { birthdays?: EventItem[]; anniversaries?: EventItem[]; leaves?: EventItem[] } | never;
-   const status = useSelector(selectEventStatus);
+  // const eventList = useSelector(selectEvent) as { birthdays?: EventItem[]; anniversaries?: EventItem[]; leaves?: EventItem[] } | never;
+  //  const status = useSelector(selectEventStatus);
 
 
-    useEffect(() => {
-      // Only dispatch if status is 'idle'
-      if (status === "idle") {
-        dispatch(fetchEvent());
-      }
-    }, [status, dispatch]);
-
+    // useEffect(() => {
+  
+    //   if (status === "idle") {
+    //     dispatch(fetchEvent());
+    //   }
+    // }, [status, dispatch]);
+    const eventList ={
+      birthdays: [
+        {
+          first_name: "Jane",
+          last_name: "Smith",
+          profile_picture: "/images/jane_smith.png",
+        }
+      ],
+      anniversaries: [
+        {
+          first_name: "Emily",
+          last_name: "Johnson",
+          profile_picture: "/images/emily_johnson.png",
+        }
+      ]
+    }
 
 
     const leavesData = Array.isArray(eventList) ? eventList.map(event => event.leaves).flat() : [];

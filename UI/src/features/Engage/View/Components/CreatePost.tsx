@@ -4,13 +4,13 @@ import { createPostData } from "../Components/EnageData";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { UploadPictureDiv } from "./UploadPictureDiv";
-import type { AppDispatch } from "../../../../redux/store";
-import { useDispatch } from "react-redux";
-import { createPost } from "../../action/EnagageAction";
+// import type { AppDispatch } from "../../../../redux/store";
+// import { useDispatch } from "react-redux";
+// import { createPost } from "../../action/EnagageAction";
 
 const CreatePost = () => {
   const [show, setShow] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const [description, setDescription] = useState<string>(""); 
   const [imageSrc, setImageSrc] = useState<Blob | MediaSource | null>(null);
 
@@ -25,15 +25,15 @@ const CreatePost = () => {
     formData.append("created_by", "Atasi");
     formData.append("employee_name", "");
 
-    dispatch(createPost(formData))
-      .unwrap()
-      .then((response) => {
-        console.log("Success:", response);
-        setShow(false); 
-        setDescription(""); 
-        setImageSrc(null);
-      })
-      .catch((err) => console.log("Error:", err));
+    // dispatch(createPost(formData))
+    //   .unwrap()
+    //   .then((response) => {
+    //     console.log("Success:", response);
+    //     setShow(false); 
+    //     setDescription(""); 
+    //     setImageSrc(null);
+    //   })
+    //   .catch((err) => console.log("Error:", err));
   };
   const handleCloseModal = () => {
     setShow(false);

@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React,{ useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
@@ -8,16 +8,16 @@ import { Image } from "../../../../utility/Image";
 import { Menu } from "../Components/Menu";
 import { NoticeBoard } from "../Components/NoticeBoard";
 import CreatePost from "../Components/CreatePost";
-import type { AppDispatch } from "../../../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getMyActivity,
-  getPost,
-  getSavedPost,
-  toggleLike,
-  toggleSave,
-} from "../../action/EnagageAction";
-import { selectEngage, selectEngageStatus } from "../../slice/EngageSlice";
+// import type { AppDispatch } from "../../../../redux/store";
+// import { useDispatch, useSelector } from "react-redux";
+// import {
+//   getMyActivity,
+//   getPost,
+//   getSavedPost,
+//   toggleLike,
+//   toggleSave,
+// } from "../../action/EnagageAction";
+// import { selectEngage, selectEngageStatus } from "../../slice/EngageSlice";
 import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
 import type { EngagePost } from "../../model/EnagageModel";
 
@@ -26,57 +26,71 @@ type MenuItemName = "All Posts" | "My Activity" | "Saved Post";
 export const Engage = () => {
   const [activeItem, setActiveItem] = useState<MenuItemName>("All Posts");
   const [show, setShow] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-  const engageList = useSelector(selectEngage);
-  const status = useSelector(selectEngageStatus);
+  // const dispatch = useDispatch<AppDispatch>();
+  // const engageList = useSelector(selectEngage);
+  // const status = useSelector(selectEngageStatus);
+  const engageList =[
+    {
+      id: 1,
+      created_by: "Alice",
+      employee_name: "Bob",
+      event_type: "Birthday",
+      title: "Birthday",
+      description: "Happy Birthday, Bob! Wishing you a fantastic year ahead!",
+      image_url: "/images/post1.png",
+      time_ago_display: "2 hours ago",
+      is_liked: false,
+      is_saved: false,
+    }
+  ]
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [myActivityList, setMyActivityList] = useState<EngagePost[]>([]);
   const [mySavedPost, setMySavedPost] = useState<EngagePost[]>([]);
 console.log("engageList-->",engageList);
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(getPost());
-    }
-  }, [status, dispatch]);
+  // useEffect(() => {
+  //   if (status === "idle") {
+  //     dispatch(getPost());
+  //   }
+  // }, [status, dispatch]);
 
-  useEffect(() => {
-    let isMounted = true;
+  // useEffect(() => {
+  //   let isMounted = true;
 
-    if (activeItem === "All Posts") {
-      dispatch(getPost());
-    }
+  //   if (activeItem === "All Posts") {
+  //     dispatch(getPost());
+  //   }
 
-    if (activeItem === "My Activity") {
-      dispatch(getMyActivity())
-        .unwrap()
-        .then((response) => {
-          if (isMounted) {
-            setMyActivityList(Array.isArray(response) ? response : []);
-          }
-        })
-        .catch((err) => {
-          console.error("Activity Fetch Failed:", err);
-          if (isMounted) setMyActivityList([]);
-        });
-    }
+  //   if (activeItem === "My Activity") {
+  //     dispatch(getMyActivity())
+  //       .unwrap()
+  //       .then((response) => {
+  //         if (isMounted) {
+  //           setMyActivityList(Array.isArray(response) ? response : []);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.error("Activity Fetch Failed:", err);
+  //         if (isMounted) setMyActivityList([]);
+  //       });
+  //   }
 
-    if (activeItem === "Saved Post") {
-      dispatch(getSavedPost())
-        .unwrap()
-        .then((response) => {
-          if (isMounted) {
-            setMySavedPost(Array.isArray(response) ? response : []);
-          }
-        })
-        .catch((err) => {
-          console.error("Activity Fetch Failed:", err);
-          if (isMounted) setMySavedPost([]);
-        });
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, [activeItem, dispatch]);
+  //   if (activeItem === "Saved Post") {
+  //     dispatch(getSavedPost())
+  //       .unwrap()
+  //       .then((response) => {
+  //         if (isMounted) {
+  //           setMySavedPost(Array.isArray(response) ? response : []);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.error("Activity Fetch Failed:", err);
+  //         if (isMounted) setMySavedPost([]);
+  //       });
+  //   }
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [ activeItem, dispatch]);
 
   const getStyledTitle = (title: string) => {
     if (!title) return null;
@@ -117,24 +131,25 @@ console.log("engageList-->",engageList);
   const handleLike = (id: number) => {
 
     const numericId = Number(id);
-
-    dispatch(toggleLike(numericId))
-      .unwrap()
-      .then((response) => {
-        console.log("display_liked status-->", response);
-      })
-      .catch((err) => console.log("Error:", err));
+console.log("like_id-->", numericId);
+    // dispatch(toggleLike(numericId))
+    //   .unwrap()
+    //   .then((response) => {
+    //     console.log("display_liked status-->", response);
+    //   })
+    //   .catch((err) => console.log("Error:", err));
   };
 
   const handleSave = (  id: number) => {
   
     const numericId = Number(id);
-    dispatch(toggleSave(numericId))
-      .unwrap()
-      .then((response) => {
-        console.log("display_saved status-->", response);
-      })
-      .catch((err) => console.log("Error:", err));
+    console.log("save_id-->", numericId);
+    // dispatch(toggleSave(numericId))
+    //   .unwrap()
+    //   .then((response) => {
+    //     console.log("display_saved status-->", response);
+    //   })
+    //   .catch((err) => console.log("Error:", err));
   };
   const handleComment = (id: number) => {
     console.log("comment_id-->", id);

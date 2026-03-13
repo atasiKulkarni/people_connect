@@ -3,27 +3,27 @@ import { Image } from "../../../../utility/Image";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectEngage,
-  selectEngageStatus,
-} from "../../../Engage/slice/EngageSlice";
-import type { AppDispatch } from "../../../../redux/store";
-import { getPost, toggleLike, toggleSave } from "../../../Engage/action/EnagageAction";
+// import { useSelector } from "react-redux";
+// import {
+//   selectEngage,
+//   selectEngageStatus,
+// } from "../../../Engage/slice/EngageSlice";
+// import type { AppDispatch } from "../../../../redux/store";
+// import { getPost, toggleLike, toggleSave } from "../../../Engage/action/EnagageAction";
 import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
 
 export const Updates = () => {
   const [show, setShow] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const navigation = useNavigate();
-  const engageList = useSelector(selectEngage);
-  const status = useSelector(selectEngageStatus);
+  // const engageList = useSelector(selectEngage);
+  // const status = useSelector(selectEngageStatus);
 
   const getStyledTitle = (title: string) => {
     if (!title) return null;
@@ -62,49 +62,50 @@ export const Updates = () => {
   };
 
   const [likedStates, setLikedStates] = useState(
-    new Array(engageList.length).fill(false)
+    // new Array(engageList.length).fill(false)
   );
   const [commentStates, setCommentStates] = useState(
-    new Array(engageList.length).fill(false)
+    // new Array(engageList.length).fill(false)
   );
 
   console.log("commentStates-->", commentStates);
   const [saveStates, setSaveStates] = useState(
-    new Array(engageList.length).fill(false)
+    // new Array(engageList.length).fill(false)
   );
  
     const handleLike = (id: number) => {
    
       const numericId = Number(id); 
-  
-         dispatch(toggleLike(numericId))
-            .unwrap()
-            .then((response) => {
-              console.log("display_liked status-->", response);
-              setLikedStates(response.liked); 
+  console.log("numericId-->", numericId);
+        //  dispatch(toggleLike(numericId))
+        //     .unwrap()
+        //     .then((response) => {
+        //       console.log("display_liked status-->", response);
+        //       setLikedStates(response.liked); 
            
-            })
-            .catch((err) => console.log("Error:", err));
+        //     })
+        //     .catch((err) => console.log("Error:", err));
   
     };
     
   const handleComment = (index: number) => {
     setShow(true);
-    setCommentStates((prevLikedStates) => {
-      const newCommentStates = [...prevLikedStates];
-      newCommentStates[index] = !newCommentStates[index];
-      return newCommentStates;
-    });
+    // setCommentStates((prevLikedStates) => {
+    //   const newCommentStates = [...prevLikedStates];
+    //   newCommentStates[index] = !newCommentStates[index];
+    //   return newCommentStates;
+    // });
   };
   const handleSave = (id: number) => {
     const numericId = Number(id);
-    dispatch(toggleSave(numericId))
-      .unwrap()
-      .then((response) => {
-        console.log("display_saved status-->", response);
-        setSaveStates(response.liked);
-      })
-      .catch((err) => console.log("Error:", err));
+    console.log("numericId-->", numericId);
+    // dispatch(toggleSave(numericId))
+    //   .unwrap()
+    //   .then((response) => {
+    //     console.log("display_saved status-->", response);
+    //     setSaveStates(response.liked);
+    //   })
+    //   .catch((err) => console.log("Error:", err));
   };
 
   const SendWishes = () => {
@@ -114,12 +115,39 @@ export const Updates = () => {
     navigation("/home/engage");
   };
 
-  useEffect(() => {
-    // Only dispatch if status is 'idle'
-    if (status === "idle") {
-      dispatch(getPost());
+  // useEffect(() => {
+ 
+  //   if (status === "idle") {
+  //     dispatch(getPost());
+  //   }
+  // }, [status, dispatch]);
+
+  const engageList =[
+    {
+      event_type:"Birthday",
+      created_by:"John Doe",
+      employee_name:"Jane Smith",
+      title:"Birthday",
+      time_ago_display:"2 hours ago",
+      image_url:"/images/sample-post.jpg",
+      description:"Wishing you a fantastic birthday filled with joy and success! May this year bring you new opportunities and achievements. Happy Birthday!",
+      id:1,
+      is_liked:true,
+      is_saved:false
+   
+    },{
+      event_type:"Anniversary",
+      created_by:"John Doe",
+      employee_name:"Jane Smith",
+      title:"Aniversary",
+      time_ago_display:"2 hours ago",
+      image_url:"/images/sample-post.jpg",
+      description:"Wishing you a fantastic birthday filled with joy and success! May this year bring you new opportunities and achievements. Happy Birthday!",
+      id:1,
+      is_liked:true,
+      is_saved:false
     }
-  }, [status, dispatch]);
+  ]
   return (
     <div className="rounded-lg py-3 w-full">
       <div className="flex w-full justify-between bg-white p-3 rounded-lg">

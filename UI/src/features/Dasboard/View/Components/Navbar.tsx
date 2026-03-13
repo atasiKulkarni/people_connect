@@ -7,9 +7,9 @@ import { Sidebar } from "./Sidebar";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
-import { useAppSelector } from "../../../../utility/hooks";
-import { fetchedLoginJson } from "../../../Login/slice/LoginSlice";
-import { getInitials } from "../../../../utility/Initials";
+// import { useAppSelector } from "../../../../utility/hooks";
+// import { fetchedLoginJson } from "../../../Login/slice/LoginSlice";
+// import { getInitials } from "../../../../utility/Initials";
 import { ClockInOut } from "./ClockInOut";
 
 export const Navbar = () => {
@@ -20,7 +20,7 @@ export const Navbar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const user = useAppSelector(fetchedLoginJson);
+  // const user = useAppSelector(fetchedLoginJson);
 
   const toggleBar = () => {
     setIsOpen(!isOpen);
@@ -117,7 +117,8 @@ export const Navbar = () => {
 
         <div className="ml-4 cursor-pointer" onClick={() => setShow(!show)}>
           <div className="bg-white rounded-full w-8 h-8 text-[#005DAC] items-center flex justify-center font-medium font-[Rubik] text-xs">
-          {getInitials(`${user[0].name}`)}
+          {/* {getInitials(`${user[0].name}`)} */}
+          Nyra
           </div>
         </div>
       </div>
@@ -144,12 +145,14 @@ export const Navbar = () => {
             <div className="bg-gray-200 rounded-full w-15 h-15 items-center flex justify-center text-center ">
               <p className="text-gray-800 font-[Rubik] font-medium text-xl text-center">
               
-                {getInitials(`${user[0].name}`)}
+                {/* {getInitials(`${user[0].name}`)} */}
+                Nyra
               </p>
             </div>
             <div className=" ml-3">
               <p className="text-black font-[Rubik] font-medium text-sm ">
-              {user[0].name}
+              {/* {user[0].name} */}
+              Nyra
               </p>
               <p className="text-gray-500 font-[Rubik] font-normal text-sm">
                 1004213

@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-import { selectBanners, selectBannerStatus } from "../../slice/BannerSlice"; // Corrected selector name
-import type { AppDispatch } from "../../../../redux/store";
-import { fetchBanners } from "../../action/BannerAction";
+// import { selectBanners, selectBannerStatus } from "../../slice/BannerSlice"; // Corrected selector name
+// import type { AppDispatch } from "../../../../redux/store";
+// import { fetchBanners } from "../../action/BannerAction";
 import type { BannerDetail } from "../../model/BannerModel";
 
 const INTERVAL_TIME = 3000;
@@ -13,9 +13,26 @@ const INTERVAL_TIME = 3000;
 const BANNER_COLORS = ["bg-[#3b4ca5]", "bg-[#186a8e]"];
 
 export const Banner = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const banners: BannerDetail[] = useSelector(selectBanners);
-  const status = useSelector(selectBannerStatus);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const banners: BannerDetail[] = [
+    {
+      id: 1,
+      title: "Welcome to the Company!",
+      description: "Discover our culture and values.",
+      image_url: "/images/banner1.png",
+      // created_at: "2024-06-01T12:00:00Z",
+    },
+    {
+      id: 2,
+      title: "Employee Benefits",
+      description: "Explore the perks of working with us.",
+      image_url: "/images/banner2.png",
+      // created_at: "2024-06-02T12:00:00Z",
+    }
+  ]
+  // const dispatch = useDispatch<AppDispatch>();
+  // const banners: BannerDetail[] = useSelector(selectBanners);
+  // const status = useSelector(selectBannerStatus);
   const [currentBanner, setCurrentBanner] = useState(0);
   const [progress, setProgress] = useState(0);
   const directionRef = useRef(1);
@@ -35,12 +52,11 @@ export const Banner = () => {
     }),
   };
 
-  useEffect(() => {
-    // Only dispatch if status is 'idle'
-    if (status === "idle") {
-      dispatch(fetchBanners());
-    }
-  }, [status, dispatch]);
+  // useEffect(() => {
+  //   if (status === "idle") {
+  //     dispatch(fetchBanners());
+  //   }
+  // }, [status, dispatch]);
 
   useEffect(() => {
     if (banners.length === 0) return;
