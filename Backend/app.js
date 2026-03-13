@@ -23,7 +23,7 @@ if (!fs.existsSync(UPLOAD_DIR)) {
 
 // ===== CORS Configuration =====
 const allowedOrigins = [
-  "https://people-connect-ten.vercel.app/",
+  "https://people-connect-ten.vercel.app",
   "https://people-connect-backend.onrender.com",
   "http://localhost:5173",
   "http://localhost:3000",
@@ -31,7 +31,14 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    // origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
