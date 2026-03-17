@@ -16,9 +16,9 @@ export const Login = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const GoToDashboard = async () => {
-    
+  
     try {
-   
+      console.log("instance-->", instance);
       // 1) Sign in
       const loginRes: AuthenticationResult = await instance.loginPopup(
         loginRequest
