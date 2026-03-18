@@ -12,6 +12,7 @@ export const RedirectHandler = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
+    console.log("RedirectHandler mounted");
     instance.handleRedirectPromise().then((response) => {
       if (response) {
         // User was redirected back after SSO login

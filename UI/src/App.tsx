@@ -11,8 +11,10 @@ import React from "react";
 import { RedirectHandler } from "./features/Login/View/Components/RedirectHandler";
 function App() {
   return (
-    <Routes>
-        <RedirectHandler />
+    <>
+      <RedirectHandler />
+      <Routes>
+     
       <Route path="/" element={<Login />} />
 
       <Route path="home" element={<Home />}>
@@ -24,6 +26,8 @@ function App() {
         <Route path="timeCard" element={<TimeCard />} />
       </Route>
     </Routes>
+    </>
+  
   );
 }
 
