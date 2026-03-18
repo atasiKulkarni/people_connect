@@ -8,9 +8,11 @@ import { Home } from "./Home";
 import { Profile } from "./features/Profile/View/Screen/Profile";
 import {TimeCard} from "./features/TimeCard/View/Screen/TimeCard";
 import React from "react";
+import { RedirectHandler } from "./features/Login/View/Components/RedirectHandler";
 function App() {
   return (
     <Routes>
+        <RedirectHandler />
       <Route path="/" element={<Login />} />
 
       <Route path="home" element={<Home />}>
