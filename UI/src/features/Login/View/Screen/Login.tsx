@@ -20,12 +20,11 @@ export const Login = () => {
     try {
       console.log("instance-->", instance);
       // 1) Sign in
-      const loginRes: AuthenticationResult = await instance.loginPopup(
-        loginRequest
-      );
+      await instance.loginRedirect(loginRequest);
+      const loginRes = await instance.handleRedirectPromise();
       console.log("loginRes->", loginRes);
       // The account MSAL should use for token acquisition
-      const account = loginRes.account || accounts[0];
+      const account = loginRes?.account || accounts[0];
       if (!account) {
         console.error("No account after login");
         return;

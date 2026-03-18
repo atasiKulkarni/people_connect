@@ -25,6 +25,7 @@ export const RedirectHandler = () => {
     });
   }, [instance, accounts]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const acquireTokenAndLogin = async (account: any) => {
     try {
       const tokenRes = await instance.acquireTokenSilent({
