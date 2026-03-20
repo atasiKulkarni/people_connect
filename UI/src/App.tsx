@@ -12,10 +12,13 @@ import { RedirectHandler } from "./features/Login/View/Components/RedirectHandle
 function App() {
   return (
     <>
-      <RedirectHandler />
+      {/* <RedirectHandler /> */}
       <Routes>
      
-      <Route path="/" element={<Login />} />
+      {/* <Route path="/" element={<Login />} /> */}
+
+      <Route path="/" element={<RedirectHandler />} />
+      <Route path="/login" element={<Login />} />
 
       <Route path="home" element={<Home />}>
         <Route index element={<Dashboard />} />

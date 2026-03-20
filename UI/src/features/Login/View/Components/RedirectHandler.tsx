@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -14,12 +14,11 @@ export const RedirectHandler = () => {
   const { instance, accounts } = useMsal();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const [isProcessing, setIsProcessing] = useState(true);
 
   useEffect(() => {
     const processRedirect = async () => {
       try {
-        console.log("RedirectHandler: Processing redirect...");
+        console.log("RedirectHandler: Checking for redirect...");
         
         const response = await instance.handleRedirectPromise();
         console.log("handleRedirectPromise response:", response);
@@ -32,21 +31,21 @@ export const RedirectHandler = () => {
           if (account) {
             // Acquire token and login
             await acquireTokenAndLogin(account);
-            return; // Exit early - we handled the redirect
+            return; // Exit - redirect handling complete
           }
         }
         
         // No redirect response - check if user is already logged in
         if (accounts.length > 0) {
           console.log("User already logged in, redirecting to home");
-          navigate("/home");
+          navigate("/home", { replace: true });
         } else {
-          console.log("No user logged in - showing login page");
-          setIsProcessing(false);
+          console.log("No user logged in - redirecting to login page");
+          navigate("/login", { replace: true });
         }
       } catch (err) {
         console.error("handleRedirectPromise error:", err);
-        setIsProcessing(false);
+        navigate("/login", { replace: true });
       }
     };
 
@@ -82,7 +81,7 @@ export const RedirectHandler = () => {
       const accessToken = tokenRes.accessToken;
       if (!accessToken) {
         console.error("No access token acquired");
-        setIsProcessing(false);
+        navigate("/login", { replace: true });
         return;
       }
 
@@ -91,22 +90,18 @@ export const RedirectHandler = () => {
         .unwrap()
         .then((response) => {
           console.log("LOGIN_RESPONSE:", response);
-          navigate("/home");
+          navigate("/home", { replace: true });
         })
         .catch((err) => {
           console.error("SSOLogin dispatch error:", err);
-          setIsProcessing(false);
+          navigate("/login", { replace: true });
         });
     } catch (err) {
       console.error("Token acquisition error:", err);
-      setIsProcessing(false);
+      navigate("/login", { replace: true });
     }
   };
 
-  // Show loading or nothing while processing redirect
-  if (isProcessing) {
-    return <div>Loading...</div>; // Or a spinner component
-  }
-
-  return null;
+  // Show nothing while checking for redirect
+  return <div style={{ display: "none" }} />;
 };
